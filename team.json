@@ -1,0 +1,10 @@
+{
+  "team_number": "T0127",
+  "group_lead": { "name": "Vedant Tiwari", "enrollment_no": "2501010503", "github": "VedantTiwari23" },
+  "members": [
+    { "name": "Ashwin Singh", "enrollment_no": "2501010097", "github": "greatkazuyamishima" },
+    { "name": "Shubham Rao", "enrollment_no": "2501010447", "github": "STORMTORM" }
+  ],
+  "postgres_version": "18.7",
+  "laptop_used_for_benchmarks": "MacBook Pro M4 2024"
+}

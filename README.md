@@ -22,12 +22,11 @@
 
 | Role | Name | Enrollment No. | GitHub Username |
 |------|------|----------------|-----------------|
-| Group Lead | | | |
-| Member 2 | | | |
-| Member 3 | | | |
-| Member 4 | | | |
+| Group Lead | Vedant Tiwari | 2501010503 | VedantTiwari23 |
+| Member 2 | Ashwin Singh | 2501010097 | greatkazuyamishima |
+| Member 3 | Shubham Rao | 2501010447 | STORMTORM |
 
-**Team No.:** ____ · **Section:** ____ · **Repository URL:** ____
+**Team No.:** T0127 · **Section:** E · **Repository URL:** https://github.com/VedantTiwari23/DE_Project_2026
 
 ---
 
