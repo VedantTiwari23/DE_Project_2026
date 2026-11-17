@@ -18,207 +18,162 @@ The database is designed to maintain data consistency through primary keys, fore
 
 The schema is intended to support both customer-facing queries and analytical workloads.
 
-## 2. Database Tables
+## 2. Data Dictionary
 
-The database consists of 11 main tables. Each table stores information about a specific entity or relationship in the streaming platform.
+The database consists of 11 core tables designed from the production CSV export. Below is the full data dictionary specifying table, column, data type, constraints, and business justifications.
 
 ### 2.1 plans
+Stores subscription tiers offered to subscribers.
 
-The `plans` table stores subscription plan information.
-
-| Column | Description |
-|---|---|
-| plan_id | Unique identifier for each subscription plan |
-| plan_name | Name of the subscription plan |
-| monthly_price_inr | Monthly subscription price in INR |
-| max_streams | Maximum number of simultaneous streams |
-| max_resolution | Maximum supported video resolution |
-| has_ads | Indicates whether advertisements are included |
-
-**Primary Key:** `plan_id`
+| Column | Data Type | Constraints | Why & Business Rule |
+|---|---|---|---|
+| `plan_id` | `INTEGER` | `PRIMARY KEY` | Unique numeric identifier for subscription plan. |
+| `plan_name` | `VARCHAR(50)` | `NOT NULL, UNIQUE, CHECK (plan_name IN ('MOBILE','BASIC','STANDARD','PREMIUM'))` | Tier name. Constrained to the 4 supported product tiers. |
+| `monthly_price_inr` | `NUMERIC(8,2)` | `NOT NULL, CHECK (monthly_price_inr >= 0)` | Recurring price in INR. Exact monetary representation. |
+| `max_streams` | `INTEGER` | `NOT NULL, CHECK (max_streams > 0)` | Number of simultaneous devices allowed. |
+| `max_resolution` | `VARCHAR(10)` | `NOT NULL, CHECK (max_resolution IN ('480p','720p','1080p','4K'))` | Maximum playback quality supported by the tier. |
+| `has_ads` | `BOOLEAN` | `NOT NULL DEFAULT FALSE` | Flag indicating ad-supported plans (currently all False in seed data). |
 
 ### 2.2 accounts
+Stores customer subscriber accounts (one account per subscribing household).
 
-The `accounts` table stores customer account information.
+| Column | Data Type | Constraints | Why & Business Rule |
+|---|---|---|---|
+| `account_id` | `INTEGER` | `PRIMARY KEY` | Unique customer account number. |
+| `email` | `VARCHAR(255)` | `NOT NULL, UNIQUE` | Login identifier. Must be unique across all accounts. |
+| `phone` | `VARCHAR(20)` | `NULL` | Optional customer contact phone number (4,888 accounts have no phone). |
+| `country_code` | `VARCHAR(10)` | `NOT NULL` | Country of account registration (e.g., IN, AE, SG). |
+| `plan_id` | `INTEGER` | `NOT NULL, FK -> plans(plan_id) ON DELETE RESTRICT` | Active subscription tier. `RESTRICT` prevents accidental deletion of active plans. |
+| `signup_date` | `DATE` | `NOT NULL` | Date customer originally subscribed. |
+| `status` | `VARCHAR(20)` | `NOT NULL, CHECK (status IN ('ACTIVE','CANCELLED','ON_HOLD'))` | Subscription lifecycle status. |
+| `cancelled_on` | `DATE` | `NULL, CHECK (status <> 'CANCELLED' OR cancelled_on IS NOT NULL)` | Cancellation timestamp. Required if account is CANCELLED. |
+| `next_billing_date`| `DATE` | `NULL` | Next scheduled renewal date. Nullable for cancelled accounts. |
 
-| Column | Description |
-|---|---|
-| account_id | Unique identifier for each account |
-| email | Customer email address |
-| phone | Customer phone number |
-| country_code | Country code of the account |
-| plan_id | Subscription plan associated with the account |
-| signup_date | Date when the account was created |
-| status | Current account status |
-| cancelled_on | Date when the subscription was cancelled |
-| next_billing_date | Next scheduled billing date |
-
-**Primary Key:** `account_id`
-
-**Foreign Key:** `plan_id` references `plans(plan_id)`.
+*Table-level Constraints:*
+- `CHECK (cancelled_on IS NULL OR cancelled_on >= signup_date)`
+- `CHECK (next_billing_date IS NULL OR next_billing_date >= signup_date)`
 
 ### 2.3 profiles
+Individual viewing profiles within an account (up to 5 per account).
 
-The `profiles` table stores individual user profiles belonging to an account.
+| Column | Data Type | Constraints | Why & Business Rule |
+|---|---|---|---|
+| `profile_id` | `INTEGER` | `PRIMARY KEY` | Unique profile identifier. |
+| `account_id` | `INTEGER` | `NOT NULL, FK -> accounts(account_id) ON DELETE CASCADE` | Parent household account. If account is purged, profiles cascade. |
+| `profile_name` | `VARCHAR(100)` | `NOT NULL` | Display name of the profile. |
+| `is_kids` | `BOOLEAN` | `NOT NULL DEFAULT FALSE` | Flag designating a kids-restricted viewing experience. |
+| `maturity_limit` | `VARCHAR(10)` | `NOT NULL, CHECK (maturity_limit IN ('U','UA7','UA13','UA16','A'))` | Maturity ceiling for the profile. |
+| `language` | `VARCHAR(50)` | `NOT NULL DEFAULT 'English'` | UI language preference. |
+| `created_at` | `TIMESTAMPTZ` | `NOT NULL` | Timestamp with timezone when profile was created. |
 
-| Column | Description |
-|---|---|
-| profile_id | Unique identifier for each profile |
-| account_id | Account to which the profile belongs |
-| profile_name | Name of the profile |
-| is_kids | Indicates whether the profile is a kids profile |
-| maturity_limit | Maximum content maturity level allowed |
-| language | Preferred profile language |
-| created_at | Date and time when the profile was created |
-
-**Primary Key:** `profile_id`
-
-**Foreign Key:** `account_id` references `accounts(account_id)`.
+*Table-level Constraint:*
+- `CHECK (NOT is_kids OR maturity_limit IN ('U', 'UA7'))`: Enforces that kids profiles can never have maturity limits above U or UA7.
 
 ### 2.4 genres
+Master list of catalog genres.
 
-The `genres` table stores the different content genres available on the platform.
-
-| Column | Description |
-|---|---|
-| genre_id | Unique identifier for each genre |
-| genre_name | Name of the genre |
-
-**Primary Key:** `genre_id`
+| Column | Data Type | Constraints | Why & Business Rule |
+|---|---|---|---|
+| `genre_id` | `INTEGER` | `PRIMARY KEY` | Unique genre ID. |
+| `genre_name` | `VARCHAR(50)` | `NOT NULL, UNIQUE, CHECK (length(trim(genre_name)) > 0)` | Genre label (e.g. Comedy, Drama). Must be unique and non-empty. |
 
 ### 2.5 titles
+Catalog titles including both movies and episodic series.
 
-The `titles` table stores information about movies and TV series.
+| Column | Data Type | Constraints | Why & Business Rule |
+|---|---|---|---|
+| `title_id` | `INTEGER` | `PRIMARY KEY` | Unique catalog identifier. |
+| `title_type` | `VARCHAR(10)` | `NOT NULL, CHECK (title_type IN ('MOVIE', 'SERIES'))` | Content format discriminator. |
+| `name` | `VARCHAR(255)` | `NOT NULL` | Content display title. |
+| `release_year` | `INTEGER` | `NOT NULL, CHECK (release_year BETWEEN 1900 AND 2100)` | Original year of release. |
+| `maturity_rating`| `VARCHAR(10)` | `NOT NULL, CHECK (maturity_rating IN ('U','UA7','UA13','UA16','A'))` | Official CBFC/content rating. |
+| `original_language`| `VARCHAR(50)`| `NOT NULL` | Original audio language. |
+| `runtime_min` | `INTEGER` | `NULL` | Movie length in minutes. NULL for series (tracked at episode level). |
+| `is_netflix_original`| `BOOLEAN`| `NOT NULL DEFAULT FALSE` | Flag for first-party Originals. |
+| `added_on` | `DATE` | `NOT NULL` | Date title was added to the Netflix catalog. |
+| `leaving_on` | `DATE` | `NULL` | Date title leaves service. NULL for perpetual titles. |
 
-| Column | Description |
-|---|---|
-| title_id | Unique identifier for each title |
-| title_type | Type of content (MOVIE or SERIES) |
-| name | Name of the movie or series |
-| release_year | Year of release |
-| maturity_rating | Content maturity rating |
-| original_language | Original language of the content |
-| runtime_min | Runtime of the movie in minutes |
-| is_netflix_original | Indicates whether the content is a Netflix Original |
-| added_on | Date when the content was added to the platform |
-| leaving_on | Date when the content leaves the platform, if applicable |
-
-**Primary Key:** `title_id`
-
-The `runtime_min` column is NULL for TV series in the supplied dataset because the runtime of individual episodes is stored in the `episodes` table.
+*Table-level Constraints:*
+- `CHECK ((title_type = 'MOVIE' AND runtime_min IS NOT NULL AND runtime_min > 0) OR (title_type = 'SERIES' AND runtime_min IS NULL))`: Ensures movies always have runtime while series do not store single runtimes.
+- `CHECK (NOT is_netflix_original OR leaving_on IS NULL)`: Originals never leave the platform.
+- `CHECK (leaving_on IS NULL OR leaving_on >= added_on)`: Removal date cannot precede addition date.
 
 ### 2.6 title_genres
+Bridge table supporting the many-to-many relationship between titles and genres.
 
-The `title_genres` table represents the many-to-many relationship between titles and genres.
+| Column | Data Type | Constraints | Why & Business Rule |
+|---|---|---|---|
+| `title_id` | `INTEGER` | `NOT NULL, FK -> titles(title_id) ON DELETE CASCADE` | Reference to parent title. |
+| `genre_id` | `INTEGER` | `NOT NULL, FK -> genres(genre_id) ON DELETE RESTRICT` | Reference to genre. `RESTRICT` prevents deleting in-use genres. |
 
-A title can belong to multiple genres, and one genre can be associated with multiple titles.
-
-| Column | Description |
-|---|---|
-| title_id | Identifier of the title |
-| genre_id | Identifier of the genre |
-
-**Composite Primary Key:** `(title_id, genre_id)`
-
-**Foreign Keys:**
-- `title_id` references `titles(title_id)`.
-- `genre_id` references `genres(genre_id)`.
+*Primary Key:* Composite `(title_id, genre_id)`.
 
 ### 2.7 episodes
+Individual episodes belonging to TV series.
 
-The `episodes` table stores episode-level information for TV series.
+| Column | Data Type | Constraints | Why & Business Rule |
+|---|---|---|---|
+| `episode_id` | `INTEGER` | `PRIMARY KEY` | Unique episode identifier. |
+| `title_id` | `INTEGER` | `NOT NULL, FK -> titles(title_id) ON DELETE CASCADE` | Reference to parent TV series. Cascades on series removal. |
+| `season_no` | `INTEGER` | `NOT NULL, CHECK (season_no > 0)` | Season index (1-based). |
+| `episode_no` | `INTEGER` | `NOT NULL, CHECK (episode_no > 0)` | Episode index within the season (1-based). |
+| `episode_title`| `VARCHAR(255)`| `NOT NULL` | Title of the specific episode. |
+| `runtime_min` | `INTEGER` | `NOT NULL, CHECK (runtime_min > 0)` | Episode runtime in minutes. |
+| `release_date`| `DATE` | `NOT NULL` | Release date of the episode. |
 
-| Column | Description |
-|---|---|
-| episode_id | Unique identifier for each episode |
-| title_id | Series to which the episode belongs |
-| season_no | Season number |
-| episode_no | Episode number within the season |
-| episode_title | Name of the episode |
-| runtime_min | Runtime of the episode in minutes |
-| release_date | Episode release date |
-
-**Primary Key:** `episode_id`
-
-**Foreign Key:** `title_id` references `titles(title_id)`.
-
-A combination of `title_id`, `season_no`, and `episode_no` can also be treated as a candidate unique key.
+*Candidate Key:* `UNIQUE (title_id, season_no, episode_no)`.
 
 ### 2.8 viewing_activity
+Streaming playback history records (200,401 seed events).
 
-The `viewing_activity` table stores user viewing history and playback activity.
-
-| Column | Description |
-|---|---|
-| view_id | Unique identifier for each viewing record |
-| profile_id | Profile that watched the content |
-| title_id | Title being watched |
-| episode_id | Episode being watched, if applicable |
-| started_at | Date and time when playback started |
-| duration_watched_sec | Total duration watched in seconds |
-| device_type | Device used for watching |
-| completed | Indicates whether the content was completed |
-
-**Primary Key:** `view_id`
-
-**Foreign Keys:**
-- `profile_id` references `profiles(profile_id)`.
-- `title_id` references `titles(title_id)`.
-- `episode_id` references `episodes(episode_id)`.
-
-The `episode_id` column is nullable because movie viewing records do not require an episode identifier.
+| Column | Data Type | Constraints | Why & Business Rule |
+|---|---|---|---|
+| `view_id` | `BIGINT` | `PRIMARY KEY` | High-volume primary key supporting billions of viewing events. |
+| `profile_id` | `INTEGER` | `NOT NULL, FK -> profiles(profile_id) ON DELETE CASCADE` | Profile that initiated the stream. |
+| `title_id` | `INTEGER` | `NOT NULL, FK -> titles(title_id) ON DELETE CASCADE` | Content streamed. |
+| `episode_id` | `INTEGER` | `NULL, FK -> episodes(episode_id) ON DELETE CASCADE` | Episode streamed. NULL for standalone movies. |
+| `started_at` | `TIMESTAMPTZ` | `NOT NULL` | Exact playback start timestamp with timezone. |
+| `duration_watched_sec`| `INTEGER`| `NOT NULL, CHECK (duration_watched_sec >= 0)` | Duration consumed in seconds. Non-negative. |
+| `device_type` | `VARCHAR(20)` | `NOT NULL, CHECK (device_type IN ('TV','MOBILE','TABLET','LAPTOP'))` | Playback client hardware category. |
+| `completed` | `BOOLEAN` | `NOT NULL DEFAULT FALSE` | Playback completion flag (e.g. credit roll reached). |
 
 ### 2.9 ratings
+User explicit feedback on titles.
 
-The `ratings` table stores user ratings for titles.
+| Column | Data Type | Constraints | Why & Business Rule |
+|---|---|---|---|
+| `profile_id` | `INTEGER` | `NOT NULL, FK -> profiles(profile_id) ON DELETE CASCADE` | Profile giving the rating. |
+| `title_id` | `INTEGER` | `NOT NULL, FK -> titles(title_id) ON DELETE CASCADE` | Content being rated. |
+| `rating` | `VARCHAR(20)` | `NOT NULL, CHECK (rating IN ('LOVE','THUMBS_UP','THUMBS_DOWN'))` | Explicit feedback score. |
+| `rated_at` | `TIMESTAMPTZ` | `NOT NULL` | Submission timestamp with timezone. |
 
-| Column | Description |
-|---|---|
-| profile_id | Profile that submitted the rating |
-| title_id | Title being rated |
-| rating | Rating value such as LOVE, THUMBS_UP or THUMBS_DOWN |
-| rated_at | Date and time when the rating was submitted |
-
-**Composite Primary Key:** `(profile_id, title_id)`
-
-**Foreign Keys:**
-- `profile_id` references `profiles(profile_id)`.
-- `title_id` references `titles(title_id)`.
-
-The composite primary key ensures that a profile has at most one rating record for a particular title.
+*Primary Key:* Composite `(profile_id, title_id)` (one rating per title per profile).
 
 ### 2.10 my_list
+Personal saved watchlist entries.
 
-The `my_list` table stores titles added by users to their personal watchlists.
+| Column | Data Type | Constraints | Why & Business Rule |
+|---|---|---|---|
+| `profile_id` | `INTEGER` | `NOT NULL, FK -> profiles(profile_id) ON DELETE CASCADE` | Profile watchlist owner. |
+| `title_id` | `INTEGER` | `NOT NULL, FK -> titles(title_id) ON DELETE CASCADE` | Bookmarked title. |
+| `added_at` | `TIMESTAMPTZ` | `NOT NULL` | Timestamp title was bookmarked. |
 
-| Column | Description |
-|---|---|
-| profile_id | Profile that added the title |
-| title_id | Title added to the list |
-| added_at | Date and time when the title was added |
-
-**Composite Primary Key:** `(profile_id, title_id)`
-
-**Foreign Keys:**
-- `profile_id` references `profiles(profile_id)`.
-- `title_id` references `titles(title_id)`.
+*Primary Key:* Composite `(profile_id, title_id)`.
 
 ### 2.11 invoices
+Billing history and collection state for subscription periods.
 
-The `invoices` table stores subscription billing and payment information.
+| Column | Data Type | Constraints | Why & Business Rule |
+|---|---|---|---|
+| `invoice_id` | `BIGINT` | `PRIMARY KEY` | High-volume unique invoice identifier. |
+| `account_id` | `INTEGER` | `NOT NULL, FK -> accounts(account_id) ON DELETE CASCADE` | Billed customer account. |
+| `billing_period_start`| `DATE` | `NOT NULL, CHECK (EXTRACT(DAY FROM billing_period_start) = 1)` | Monthly billing cycle start date (always 1st of month). |
+| `amount_inr` | `NUMERIC(8,2)`| `NOT NULL, CHECK (amount_inr >= 0)` | Billed amount in INR. Preserves immutable billing history. |
+| `status` | `VARCHAR(20)` | `NOT NULL, CHECK (status IN ('PAID','FAILED','REFUNDED'))` | Settlement status. |
+| `paid_at` | `TIMESTAMPTZ` | `NULL` | Settlement timestamp. NULL for failed or pending charges. |
 
-| Column | Description |
-|---|---|
-| invoice_id | Unique identifier for each invoice |
-| account_id | Account associated with the invoice |
-| billing_period_start | Starting date of the billing period |
-| amount_inr | Invoice amount in INR |
-| status | Payment status |
-| paid_at | Date and time when payment was made |
-
-**Primary Key:** `invoice_id`
-
-**Foreign Key:** `account_id` references `accounts(account_id)`.
+*Table-level Constraint:*
+- `CHECK (status <> 'FAILED' OR paid_at IS NULL)`: Invoices that failed settlement cannot have a payment timestamp.
 
 ## 3. Primary Key and Foreign Key Relationships
 
@@ -409,26 +364,175 @@ For episode viewing records, the title can potentially be obtained through the e
 
 The `title_id` in viewing activity can still be useful for direct title-level queries and analytics.
 
-## 8. Relationships Between Tables
+## 8. Entity-Relationship (ER) Diagram
 
-The major relationships in the database are:
+The visual ER diagram is saved at [diagrams/er_diagram.svg](../diagrams/er_diagram.svg).
 
-1. One subscription plan can be associated with many accounts.
-2. One account can have multiple user profiles.
-3. One title can belong to multiple genres.
-4. One genre can be associated with multiple titles.
-5. One TV series can contain multiple episodes.
-6. One profile can have many viewing activity records.
-7. One title can appear in many viewing activity records.
-8. One profile can rate multiple titles.
-9. One profile can add multiple titles to their personal list.
-10. One account can have multiple invoices.
+Below is the Mermaid entity-relationship diagram representing the 11 tables, their keys, and cardinalities:
 
-The `title_genres` table implements the many-to-many relationship between titles and genres.
+```mermaid
+erDiagram
+    plans ||--o{ accounts : "has"
+    accounts ||--o{ profiles : "contains"
+    accounts ||--o{ invoices : "billed_to"
+    titles ||--o{ episodes : "contains"
+    titles ||--o{ title_genres : "categorized_by"
+    genres ||--o{ title_genres : "classifies"
+    profiles ||--o{ viewing_activity : "watches"
+    titles ||--o{ viewing_activity : "viewed_in"
+    episodes |o--o{ viewing_activity : "played_in"
+    profiles ||--o{ ratings : "submits"
+    titles ||--o{ ratings : "receives"
+    profiles ||--o{ my_list : "saves"
+    titles ||--o{ my_list : "saved_in"
 
-The `ratings` and `my_list` tables also use composite keys to represent profile-to-title relationships.
+    plans {
+        int plan_id PK
+        string plan_name
+        numeric monthly_price_inr
+        int max_streams
+        string max_resolution
+        boolean has_ads
+    }
 
-## 9. Conclusion
+    accounts {
+        int account_id PK
+        string email
+        string phone
+        string country_code
+        int plan_id FK
+        date signup_date
+        string status
+        date cancelled_on
+        date next_billing_date
+    }
+
+    profiles {
+        int profile_id PK
+        int account_id FK
+        string profile_name
+        boolean is_kids
+        string maturity_limit
+        string language
+        timestamptz created_at
+    }
+
+    genres {
+        int genre_id PK
+        string genre_name
+    }
+
+    titles {
+        int title_id PK
+        string title_type
+        string name
+        int release_year
+        string maturity_rating
+        string original_language
+        int runtime_min
+        boolean is_netflix_original
+        date added_on
+        date leaving_on
+    }
+
+    title_genres {
+        int title_id PK,FK
+        int genre_id PK,FK
+    }
+
+    episodes {
+        int episode_id PK
+        int title_id FK
+        int season_no
+        int episode_no
+        string episode_title
+        int runtime_min
+        date release_date
+    }
+
+    viewing_activity {
+        bigint view_id PK
+        int profile_id FK
+        int title_id FK
+        int episode_id FK
+        timestamptz started_at
+        int duration_watched_sec
+        string device_type
+        boolean completed
+    }
+
+    ratings {
+        int profile_id PK,FK
+        int title_id PK,FK
+        string rating
+        timestamptz rated_at
+    }
+
+    my_list {
+        int profile_id PK,FK
+        int title_id PK,FK
+        timestamptz added_at
+    }
+
+    invoices {
+        bigint invoice_id PK
+        int account_id FK
+        date billing_period_start
+        numeric amount_inr
+        string status
+        timestamptz paid_at
+    }
+```
+
+## 9. Integrity Check Results
+
+To verify data integrity following seed data ingestion, the following SQL integrity checks were executed:
+
+### Check 1: Viewing Activity Before Catalog Addition Date
+Ensure that no viewing event was recorded prior to the date the title became available on the platform:
+```sql
+SELECT count(*) AS violations
+FROM netflix.viewing_activity v
+JOIN netflix.titles t ON t.title_id = v.title_id
+WHERE v.started_at::date < t.added_on;
+```
+- **Result:** `0 violations`. All viewing activity occurs on or after title release on the platform.
+
+### Check 2: Episode Series Consistency in Viewing Activity
+Ensure that whenever an `episode_id` is present in `viewing_activity`, its corresponding `title_id` in `episodes` strictly matches the `title_id` in `viewing_activity`:
+```sql
+SELECT count(*) AS violations
+FROM netflix.viewing_activity v
+JOIN netflix.episodes e ON e.episode_id = v.episode_id
+WHERE v.title_id <> e.title_id;
+```
+- **Result:** `0 violations`. Episode-level views perfectly map to the parent series.
+
+### Check 3: Maximum Profiles Per Account
+Ensure that no customer account violates the business rule of at most 5 profiles per household:
+```sql
+SELECT account_id, count(*) AS profile_count
+FROM netflix.profiles
+GROUP BY account_id
+HAVING count(*) > 5;
+```
+- **Result:** `0 rows returned (0 violations)`. The maximum number of profiles per account is 5.
+
+### Check 4: Data Problem Discovery — Kids Profile Maturity Breach
+Testing whether any kids profile accessed content rated above their maturity rating:
+```sql
+SELECT count(*) AS kids_violations
+FROM netflix.viewing_activity v
+JOIN netflix.profiles p ON p.profile_id = v.profile_id
+JOIN netflix.titles t   ON t.title_id = v.title_id
+WHERE p.is_kids
+  AND array_position(ARRAY['U','UA7','UA13','UA16','A'], t.maturity_rating)
+      > array_position(ARRAY['U','UA7','UA13','UA16','A'], p.maturity_limit);
+```
+- **Result:** `6,714 records found`.
+- **Finding:** In historical data, kids profiles have viewed titles rated above their maturity limit. This confirms why a database-level `CHECK` constraint across these tables cannot be added without failing historical data ingestion, and directly motivates problem **P6** and analytical query **R14** used by the Compliance team.
+
+## 10. Conclusion
 
 The proposed database schema organizes the streaming platform's data into 11 related tables.
 

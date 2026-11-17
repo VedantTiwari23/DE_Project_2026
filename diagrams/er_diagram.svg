@@ -1,0 +1,236 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2000 650" width="2000" height="650" style="background-color: #0f172a; font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, sans-serif;">
+<defs>
+  <filter id="shadow" x="-5%" y="-5%" width="110%" height="115%">
+    <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#000" flood-opacity="0.4"/>
+  </filter>
+  <marker id="arrow" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+    <path d="M 0 1 L 8 5 L 0 9 z" fill="#64748b" />
+  </marker>
+</defs>
+<path d="M 290 80 L 350 80" stroke="#64748b" stroke-width="2" stroke-dasharray="4 4" marker-end="url(#arrow)" fill="none" opacity="0.75"/>
+<path d="M 610 80 L 670 80" stroke="#64748b" stroke-width="2" stroke-dasharray="4 4" marker-end="url(#arrow)" fill="none" opacity="0.75"/>
+<path d="M 480 260 L 480 340" stroke="#64748b" stroke-width="2" stroke-dasharray="4 4" marker-end="url(#arrow)" fill="none" opacity="0.75"/>
+<path d="M 930 80 L 1000 80" stroke="#64748b" stroke-width="2" stroke-dasharray="4 4" marker-end="url(#arrow)" fill="none" opacity="0.75"/>
+<path d="M 930 310 L 1350 150" stroke="#64748b" stroke-width="2" stroke-dasharray="4 4" marker-end="url(#arrow)" fill="none" opacity="0.75"/>
+<path d="M 930 470 L 1350 180" stroke="#64748b" stroke-width="2" stroke-dasharray="4 4" marker-end="url(#arrow)" fill="none" opacity="0.75"/>
+<path d="M 1350 100 L 1280 100" stroke="#64748b" stroke-width="2" stroke-dasharray="4 4" marker-end="url(#arrow)" fill="none" opacity="0.75"/>
+<path d="M 1485 300 L 1485 380" stroke="#64748b" stroke-width="2" stroke-dasharray="4 4" marker-end="url(#arrow)" fill="none" opacity="0.75"/>
+<path d="M 1350 420 L 1200 240" stroke="#64748b" stroke-width="2" stroke-dasharray="4 4" marker-end="url(#arrow)" fill="none" opacity="0.75"/>
+<path d="M 1620 100 L 1700 230" stroke="#64748b" stroke-width="2" stroke-dasharray="4 4" marker-end="url(#arrow)" fill="none" opacity="0.75"/>
+<path d="M 1810 130 L 1810 200" stroke="#64748b" stroke-width="2" stroke-dasharray="4 4" marker-end="url(#arrow)" fill="none" opacity="0.75"/>
+<g filter="url(#shadow)">
+<rect x="50" y="50" width="240" height="188" rx="8" fill="#1e293b" stroke="#334155" stroke-width="1.5"/>
+<path d="M 50 86 L 290 86" stroke="#334155" stroke-width="1.5"/>
+<rect x="50" y="50" width="240" height="36" rx="8" fill="#e11d48" opacity="0.15"/>
+<text x="64" y="73" fill="#f43f5e" font-size="14" font-weight="bold" letter-spacing="0.5">plans</text>
+<text x="64" y="104" fill="#e11d48" font-size="10" font-weight="bold">PK</text>
+<text x="105" y="104" fill="#f8fafc" font-size="12" font-weight="500">plan_id</text>
+<text x="278" y="104" text-anchor="end" fill="#94a3b8" font-size="11">INT</text>
+<text x="105" y="128" fill="#f8fafc" font-size="12" font-weight="500">plan_name</text>
+<text x="278" y="128" text-anchor="end" fill="#94a3b8" font-size="11">VARCHAR(50)</text>
+<text x="105" y="152" fill="#f8fafc" font-size="12" font-weight="500">monthly_price_inr</text>
+<text x="278" y="152" text-anchor="end" fill="#94a3b8" font-size="11">NUMERIC(8,2)</text>
+<text x="105" y="176" fill="#f8fafc" font-size="12" font-weight="500">max_streams</text>
+<text x="278" y="176" text-anchor="end" fill="#94a3b8" font-size="11">INT</text>
+<text x="105" y="200" fill="#f8fafc" font-size="12" font-weight="500">max_resolution</text>
+<text x="278" y="200" text-anchor="end" fill="#94a3b8" font-size="11">VARCHAR(10)</text>
+<text x="105" y="224" fill="#f8fafc" font-size="12" font-weight="500">has_ads</text>
+<text x="278" y="224" text-anchor="end" fill="#94a3b8" font-size="11">BOOLEAN</text>
+</g>
+<g filter="url(#shadow)">
+<rect x="350" y="50" width="260" height="260" rx="8" fill="#1e293b" stroke="#334155" stroke-width="1.5"/>
+<path d="M 350 86 L 610 86" stroke="#334155" stroke-width="1.5"/>
+<rect x="350" y="50" width="260" height="36" rx="8" fill="#e11d48" opacity="0.15"/>
+<text x="364" y="73" fill="#f43f5e" font-size="14" font-weight="bold" letter-spacing="0.5">accounts</text>
+<text x="364" y="104" fill="#e11d48" font-size="10" font-weight="bold">PK</text>
+<text x="405" y="104" fill="#f8fafc" font-size="12" font-weight="500">account_id</text>
+<text x="598" y="104" text-anchor="end" fill="#94a3b8" font-size="11">INT</text>
+<text x="364" y="128" fill="#3b82f6" font-size="10" font-weight="bold">FK</text>
+<text x="405" y="128" fill="#f8fafc" font-size="12" font-weight="500">plan_id</text>
+<text x="598" y="128" text-anchor="end" fill="#94a3b8" font-size="11">INT</text>
+<text x="405" y="152" fill="#f8fafc" font-size="12" font-weight="500">email</text>
+<text x="598" y="152" text-anchor="end" fill="#94a3b8" font-size="11">VARCHAR(255)</text>
+<text x="405" y="176" fill="#f8fafc" font-size="12" font-weight="500">phone</text>
+<text x="598" y="176" text-anchor="end" fill="#94a3b8" font-size="11">VARCHAR(20)</text>
+<text x="405" y="200" fill="#f8fafc" font-size="12" font-weight="500">country_code</text>
+<text x="598" y="200" text-anchor="end" fill="#94a3b8" font-size="11">VARCHAR(10)</text>
+<text x="405" y="224" fill="#f8fafc" font-size="12" font-weight="500">signup_date</text>
+<text x="598" y="224" text-anchor="end" fill="#94a3b8" font-size="11">DATE</text>
+<text x="405" y="248" fill="#f8fafc" font-size="12" font-weight="500">status</text>
+<text x="598" y="248" text-anchor="end" fill="#94a3b8" font-size="11">VARCHAR(20)</text>
+<text x="405" y="272" fill="#f8fafc" font-size="12" font-weight="500">cancelled_on</text>
+<text x="598" y="272" text-anchor="end" fill="#94a3b8" font-size="11">DATE</text>
+<text x="405" y="296" fill="#f8fafc" font-size="12" font-weight="500">next_billing_date</text>
+<text x="598" y="296" text-anchor="end" fill="#94a3b8" font-size="11">DATE</text>
+</g>
+<g filter="url(#shadow)">
+<rect x="350" y="340" width="260" height="188" rx="8" fill="#1e293b" stroke="#334155" stroke-width="1.5"/>
+<path d="M 350 376 L 610 376" stroke="#334155" stroke-width="1.5"/>
+<rect x="350" y="340" width="260" height="36" rx="8" fill="#e11d48" opacity="0.15"/>
+<text x="364" y="363" fill="#f43f5e" font-size="14" font-weight="bold" letter-spacing="0.5">invoices</text>
+<text x="364" y="394" fill="#e11d48" font-size="10" font-weight="bold">PK</text>
+<text x="405" y="394" fill="#f8fafc" font-size="12" font-weight="500">invoice_id</text>
+<text x="598" y="394" text-anchor="end" fill="#94a3b8" font-size="11">BIGINT</text>
+<text x="364" y="418" fill="#3b82f6" font-size="10" font-weight="bold">FK</text>
+<text x="405" y="418" fill="#f8fafc" font-size="12" font-weight="500">account_id</text>
+<text x="598" y="418" text-anchor="end" fill="#94a3b8" font-size="11">INT</text>
+<text x="405" y="442" fill="#f8fafc" font-size="12" font-weight="500">billing_period_start</text>
+<text x="598" y="442" text-anchor="end" fill="#94a3b8" font-size="11">DATE</text>
+<text x="405" y="466" fill="#f8fafc" font-size="12" font-weight="500">amount_inr</text>
+<text x="598" y="466" text-anchor="end" fill="#94a3b8" font-size="11">NUMERIC(8,2)</text>
+<text x="405" y="490" fill="#f8fafc" font-size="12" font-weight="500">status</text>
+<text x="598" y="490" text-anchor="end" fill="#94a3b8" font-size="11">VARCHAR(20)</text>
+<text x="405" y="514" fill="#f8fafc" font-size="12" font-weight="500">paid_at</text>
+<text x="598" y="514" text-anchor="end" fill="#94a3b8" font-size="11">TIMESTAMPTZ</text>
+</g>
+<g filter="url(#shadow)">
+<rect x="670" y="50" width="260" height="212" rx="8" fill="#1e293b" stroke="#334155" stroke-width="1.5"/>
+<path d="M 670 86 L 930 86" stroke="#334155" stroke-width="1.5"/>
+<rect x="670" y="50" width="260" height="36" rx="8" fill="#e11d48" opacity="0.15"/>
+<text x="684" y="73" fill="#f43f5e" font-size="14" font-weight="bold" letter-spacing="0.5">profiles</text>
+<text x="684" y="104" fill="#e11d48" font-size="10" font-weight="bold">PK</text>
+<text x="725" y="104" fill="#f8fafc" font-size="12" font-weight="500">profile_id</text>
+<text x="918" y="104" text-anchor="end" fill="#94a3b8" font-size="11">INT</text>
+<text x="684" y="128" fill="#3b82f6" font-size="10" font-weight="bold">FK</text>
+<text x="725" y="128" fill="#f8fafc" font-size="12" font-weight="500">account_id</text>
+<text x="918" y="128" text-anchor="end" fill="#94a3b8" font-size="11">INT</text>
+<text x="725" y="152" fill="#f8fafc" font-size="12" font-weight="500">profile_name</text>
+<text x="918" y="152" text-anchor="end" fill="#94a3b8" font-size="11">VARCHAR(100)</text>
+<text x="725" y="176" fill="#f8fafc" font-size="12" font-weight="500">is_kids</text>
+<text x="918" y="176" text-anchor="end" fill="#94a3b8" font-size="11">BOOLEAN</text>
+<text x="725" y="200" fill="#f8fafc" font-size="12" font-weight="500">maturity_limit</text>
+<text x="918" y="200" text-anchor="end" fill="#94a3b8" font-size="11">VARCHAR(10)</text>
+<text x="725" y="224" fill="#f8fafc" font-size="12" font-weight="500">language</text>
+<text x="918" y="224" text-anchor="end" fill="#94a3b8" font-size="11">VARCHAR(50)</text>
+<text x="725" y="248" fill="#f8fafc" font-size="12" font-weight="500">created_at</text>
+<text x="918" y="248" text-anchor="end" fill="#94a3b8" font-size="11">TIMESTAMPTZ</text>
+</g>
+<g filter="url(#shadow)">
+<rect x="670" y="280" width="260" height="140" rx="8" fill="#1e293b" stroke="#334155" stroke-width="1.5"/>
+<path d="M 670 316 L 930 316" stroke="#334155" stroke-width="1.5"/>
+<rect x="670" y="280" width="260" height="36" rx="8" fill="#e11d48" opacity="0.15"/>
+<text x="684" y="303" fill="#f43f5e" font-size="14" font-weight="bold" letter-spacing="0.5">ratings</text>
+<text x="684" y="334" fill="#e11d48" font-size="10" font-weight="bold">PK,FK</text>
+<text x="725" y="334" fill="#f8fafc" font-size="12" font-weight="500">profile_id</text>
+<text x="918" y="334" text-anchor="end" fill="#94a3b8" font-size="11">INT</text>
+<text x="684" y="358" fill="#e11d48" font-size="10" font-weight="bold">PK,FK</text>
+<text x="725" y="358" fill="#f8fafc" font-size="12" font-weight="500">title_id</text>
+<text x="918" y="358" text-anchor="end" fill="#94a3b8" font-size="11">INT</text>
+<text x="725" y="382" fill="#f8fafc" font-size="12" font-weight="500">rating</text>
+<text x="918" y="382" text-anchor="end" fill="#94a3b8" font-size="11">VARCHAR(20)</text>
+<text x="725" y="406" fill="#f8fafc" font-size="12" font-weight="500">rated_at</text>
+<text x="918" y="406" text-anchor="end" fill="#94a3b8" font-size="11">TIMESTAMPTZ</text>
+</g>
+<g filter="url(#shadow)">
+<rect x="670" y="440" width="260" height="116" rx="8" fill="#1e293b" stroke="#334155" stroke-width="1.5"/>
+<path d="M 670 476 L 930 476" stroke="#334155" stroke-width="1.5"/>
+<rect x="670" y="440" width="260" height="36" rx="8" fill="#e11d48" opacity="0.15"/>
+<text x="684" y="463" fill="#f43f5e" font-size="14" font-weight="bold" letter-spacing="0.5">my_list</text>
+<text x="684" y="494" fill="#e11d48" font-size="10" font-weight="bold">PK,FK</text>
+<text x="725" y="494" fill="#f8fafc" font-size="12" font-weight="500">profile_id</text>
+<text x="918" y="494" text-anchor="end" fill="#94a3b8" font-size="11">INT</text>
+<text x="684" y="518" fill="#e11d48" font-size="10" font-weight="bold">PK,FK</text>
+<text x="725" y="518" fill="#f8fafc" font-size="12" font-weight="500">title_id</text>
+<text x="918" y="518" text-anchor="end" fill="#94a3b8" font-size="11">INT</text>
+<text x="725" y="542" fill="#f8fafc" font-size="12" font-weight="500">added_at</text>
+<text x="918" y="542" text-anchor="end" fill="#94a3b8" font-size="11">TIMESTAMPTZ</text>
+</g>
+<g filter="url(#shadow)">
+<rect x="1000" y="50" width="280" height="236" rx="8" fill="#1e293b" stroke="#334155" stroke-width="1.5"/>
+<path d="M 1000 86 L 1280 86" stroke="#334155" stroke-width="1.5"/>
+<rect x="1000" y="50" width="280" height="36" rx="8" fill="#e11d48" opacity="0.15"/>
+<text x="1014" y="73" fill="#f43f5e" font-size="14" font-weight="bold" letter-spacing="0.5">viewing_activity</text>
+<text x="1014" y="104" fill="#e11d48" font-size="10" font-weight="bold">PK</text>
+<text x="1055" y="104" fill="#f8fafc" font-size="12" font-weight="500">view_id</text>
+<text x="1268" y="104" text-anchor="end" fill="#94a3b8" font-size="11">BIGINT</text>
+<text x="1014" y="128" fill="#3b82f6" font-size="10" font-weight="bold">FK</text>
+<text x="1055" y="128" fill="#f8fafc" font-size="12" font-weight="500">profile_id</text>
+<text x="1268" y="128" text-anchor="end" fill="#94a3b8" font-size="11">INT</text>
+<text x="1014" y="152" fill="#3b82f6" font-size="10" font-weight="bold">FK</text>
+<text x="1055" y="152" fill="#f8fafc" font-size="12" font-weight="500">title_id</text>
+<text x="1268" y="152" text-anchor="end" fill="#94a3b8" font-size="11">INT</text>
+<text x="1014" y="176" fill="#3b82f6" font-size="10" font-weight="bold">FK</text>
+<text x="1055" y="176" fill="#f8fafc" font-size="12" font-weight="500">episode_id</text>
+<text x="1268" y="176" text-anchor="end" fill="#94a3b8" font-size="11">INT</text>
+<text x="1055" y="200" fill="#f8fafc" font-size="12" font-weight="500">started_at</text>
+<text x="1268" y="200" text-anchor="end" fill="#94a3b8" font-size="11">TIMESTAMPTZ</text>
+<text x="1055" y="224" fill="#f8fafc" font-size="12" font-weight="500">duration_watched_sec</text>
+<text x="1268" y="224" text-anchor="end" fill="#94a3b8" font-size="11">INT</text>
+<text x="1055" y="248" fill="#f8fafc" font-size="12" font-weight="500">device_type</text>
+<text x="1268" y="248" text-anchor="end" fill="#94a3b8" font-size="11">VARCHAR(20)</text>
+<text x="1055" y="272" fill="#f8fafc" font-size="12" font-weight="500">completed</text>
+<text x="1268" y="272" text-anchor="end" fill="#94a3b8" font-size="11">BOOLEAN</text>
+</g>
+<g filter="url(#shadow)">
+<rect x="1350" y="50" width="270" height="284" rx="8" fill="#1e293b" stroke="#334155" stroke-width="1.5"/>
+<path d="M 1350 86 L 1620 86" stroke="#334155" stroke-width="1.5"/>
+<rect x="1350" y="50" width="270" height="36" rx="8" fill="#e11d48" opacity="0.15"/>
+<text x="1364" y="73" fill="#f43f5e" font-size="14" font-weight="bold" letter-spacing="0.5">titles</text>
+<text x="1364" y="104" fill="#e11d48" font-size="10" font-weight="bold">PK</text>
+<text x="1405" y="104" fill="#f8fafc" font-size="12" font-weight="500">title_id</text>
+<text x="1608" y="104" text-anchor="end" fill="#94a3b8" font-size="11">INT</text>
+<text x="1405" y="128" fill="#f8fafc" font-size="12" font-weight="500">title_type</text>
+<text x="1608" y="128" text-anchor="end" fill="#94a3b8" font-size="11">VARCHAR(10)</text>
+<text x="1405" y="152" fill="#f8fafc" font-size="12" font-weight="500">name</text>
+<text x="1608" y="152" text-anchor="end" fill="#94a3b8" font-size="11">VARCHAR(255)</text>
+<text x="1405" y="176" fill="#f8fafc" font-size="12" font-weight="500">release_year</text>
+<text x="1608" y="176" text-anchor="end" fill="#94a3b8" font-size="11">INT</text>
+<text x="1405" y="200" fill="#f8fafc" font-size="12" font-weight="500">maturity_rating</text>
+<text x="1608" y="200" text-anchor="end" fill="#94a3b8" font-size="11">VARCHAR(10)</text>
+<text x="1405" y="224" fill="#f8fafc" font-size="12" font-weight="500">original_language</text>
+<text x="1608" y="224" text-anchor="end" fill="#94a3b8" font-size="11">VARCHAR(50)</text>
+<text x="1405" y="248" fill="#f8fafc" font-size="12" font-weight="500">runtime_min</text>
+<text x="1608" y="248" text-anchor="end" fill="#94a3b8" font-size="11">INT</text>
+<text x="1405" y="272" fill="#f8fafc" font-size="12" font-weight="500">is_netflix_original</text>
+<text x="1608" y="272" text-anchor="end" fill="#94a3b8" font-size="11">BOOLEAN</text>
+<text x="1405" y="296" fill="#f8fafc" font-size="12" font-weight="500">added_on</text>
+<text x="1608" y="296" text-anchor="end" fill="#94a3b8" font-size="11">DATE</text>
+<text x="1405" y="320" fill="#f8fafc" font-size="12" font-weight="500">leaving_on</text>
+<text x="1608" y="320" text-anchor="end" fill="#94a3b8" font-size="11">DATE</text>
+</g>
+<g filter="url(#shadow)">
+<rect x="1700" y="50" width="220" height="92" rx="8" fill="#1e293b" stroke="#334155" stroke-width="1.5"/>
+<path d="M 1700 86 L 1920 86" stroke="#334155" stroke-width="1.5"/>
+<rect x="1700" y="50" width="220" height="36" rx="8" fill="#e11d48" opacity="0.15"/>
+<text x="1714" y="73" fill="#f43f5e" font-size="14" font-weight="bold" letter-spacing="0.5">genres</text>
+<text x="1714" y="104" fill="#e11d48" font-size="10" font-weight="bold">PK</text>
+<text x="1755" y="104" fill="#f8fafc" font-size="12" font-weight="500">genre_id</text>
+<text x="1908" y="104" text-anchor="end" fill="#94a3b8" font-size="11">INT</text>
+<text x="1755" y="128" fill="#f8fafc" font-size="12" font-weight="500">genre_name</text>
+<text x="1908" y="128" text-anchor="end" fill="#94a3b8" font-size="11">VARCHAR(50)</text>
+</g>
+<g filter="url(#shadow)">
+<rect x="1700" y="200" width="220" height="92" rx="8" fill="#1e293b" stroke="#334155" stroke-width="1.5"/>
+<path d="M 1700 236 L 1920 236" stroke="#334155" stroke-width="1.5"/>
+<rect x="1700" y="200" width="220" height="36" rx="8" fill="#e11d48" opacity="0.15"/>
+<text x="1714" y="223" fill="#f43f5e" font-size="14" font-weight="bold" letter-spacing="0.5">title_genres</text>
+<text x="1714" y="254" fill="#e11d48" font-size="10" font-weight="bold">PK,FK</text>
+<text x="1755" y="254" fill="#f8fafc" font-size="12" font-weight="500">title_id</text>
+<text x="1908" y="254" text-anchor="end" fill="#94a3b8" font-size="11">INT</text>
+<text x="1714" y="278" fill="#e11d48" font-size="10" font-weight="bold">PK,FK</text>
+<text x="1755" y="278" fill="#f8fafc" font-size="12" font-weight="500">genre_id</text>
+<text x="1908" y="278" text-anchor="end" fill="#94a3b8" font-size="11">INT</text>
+</g>
+<g filter="url(#shadow)">
+<rect x="1350" y="380" width="270" height="212" rx="8" fill="#1e293b" stroke="#334155" stroke-width="1.5"/>
+<path d="M 1350 416 L 1620 416" stroke="#334155" stroke-width="1.5"/>
+<rect x="1350" y="380" width="270" height="36" rx="8" fill="#e11d48" opacity="0.15"/>
+<text x="1364" y="403" fill="#f43f5e" font-size="14" font-weight="bold" letter-spacing="0.5">episodes</text>
+<text x="1364" y="434" fill="#e11d48" font-size="10" font-weight="bold">PK</text>
+<text x="1405" y="434" fill="#f8fafc" font-size="12" font-weight="500">episode_id</text>
+<text x="1608" y="434" text-anchor="end" fill="#94a3b8" font-size="11">INT</text>
+<text x="1364" y="458" fill="#3b82f6" font-size="10" font-weight="bold">FK</text>
+<text x="1405" y="458" fill="#f8fafc" font-size="12" font-weight="500">title_id</text>
+<text x="1608" y="458" text-anchor="end" fill="#94a3b8" font-size="11">INT</text>
+<text x="1405" y="482" fill="#f8fafc" font-size="12" font-weight="500">season_no</text>
+<text x="1608" y="482" text-anchor="end" fill="#94a3b8" font-size="11">INT</text>
+<text x="1405" y="506" fill="#f8fafc" font-size="12" font-weight="500">episode_no</text>
+<text x="1608" y="506" text-anchor="end" fill="#94a3b8" font-size="11">INT</text>
+<text x="1405" y="530" fill="#f8fafc" font-size="12" font-weight="500">episode_title</text>
+<text x="1608" y="530" text-anchor="end" fill="#94a3b8" font-size="11">VARCHAR(255)</text>
+<text x="1405" y="554" fill="#f8fafc" font-size="12" font-weight="500">runtime_min</text>
+<text x="1608" y="554" text-anchor="end" fill="#94a3b8" font-size="11">INT</text>
+<text x="1405" y="578" fill="#f8fafc" font-size="12" font-weight="500">release_date</text>
+<text x="1608" y="578" text-anchor="end" fill="#94a3b8" font-size="11">DATE</text>
+</g>
+</svg>
