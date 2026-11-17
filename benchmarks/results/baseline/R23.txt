@@ -1,0 +1,39 @@
+=== R23 run 1 ===
+Limit  (cost=26557.85..26557.92 rows=25 width=28) (actual time=40.140..40.143 rows=25.00 loops=1)
+  Buffers: shared hit=1739, temp read=835 written=946
+  ->  Sort  (cost=26182.85..26683.86 rows=200401 width=28) (actual time=32.866..37.527 rows=150025.00 loops=1)
+        Sort Key: started_at DESC
+        Sort Method: external merge  Disk: 7536kB
+        Buffers: shared hit=1739, temp read=835 written=946
+        ->  Seq Scan on viewing_activity  (cost=0.00..3740.01 rows=200401 width=28) (actual time=0.003..10.312 rows=200401.00 loops=1)
+              Buffers: shared hit=1736
+Planning:
+  Buffers: shared hit=89
+Planning Time: 0.153 ms
+Execution Time: 41.782 ms
+=== R23 run 2 ===
+Limit  (cost=26557.85..26557.92 rows=25 width=28) (actual time=36.610..36.612 rows=25.00 loops=1)
+  Buffers: shared hit=1739, temp read=835 written=946
+  ->  Sort  (cost=26182.85..26683.86 rows=200401 width=28) (actual time=29.203..33.938 rows=150025.00 loops=1)
+        Sort Key: started_at DESC
+        Sort Method: external merge  Disk: 7536kB
+        Buffers: shared hit=1739, temp read=835 written=946
+        ->  Seq Scan on viewing_activity  (cost=0.00..3740.01 rows=200401 width=28) (actual time=0.004..9.296 rows=200401.00 loops=1)
+              Buffers: shared hit=1736
+Planning:
+  Buffers: shared hit=89
+Planning Time: 0.196 ms
+Execution Time: 38.399 ms
+=== R23 run 3 ===
+Limit  (cost=26557.85..26557.92 rows=25 width=28) (actual time=36.639..36.641 rows=25.00 loops=1)
+  Buffers: shared hit=1739, temp read=835 written=946
+  ->  Sort  (cost=26182.85..26683.86 rows=200401 width=28) (actual time=29.329..34.007 rows=150025.00 loops=1)
+        Sort Key: started_at DESC
+        Sort Method: external merge  Disk: 7536kB
+        Buffers: shared hit=1739, temp read=835 written=946
+        ->  Seq Scan on viewing_activity  (cost=0.00..3740.01 rows=200401 width=28) (actual time=0.004..9.216 rows=200401.00 loops=1)
+              Buffers: shared hit=1736
+Planning:
+  Buffers: shared hit=89
+Planning Time: 0.141 ms
+Execution Time: 38.228 ms

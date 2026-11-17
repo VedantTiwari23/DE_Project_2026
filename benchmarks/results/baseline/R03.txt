@@ -1,0 +1,99 @@
+=== R03 run 1 ===
+Limit  (cost=4710.08..4710.11 rows=10 width=37) (actual time=13.223..14.422 rows=10.00 loops=1)
+  Buffers: shared hit=1825
+  ->  Sort  (cost=4710.08..4710.81 rows=292 width=37) (actual time=13.222..14.420 rows=10.00 loops=1)
+        Sort Key: (count(DISTINCT v.profile_id)) DESC
+        Sort Method: top-N heapsort  Memory: 25kB
+        Buffers: shared hit=1825
+        ->  GroupAggregate  (cost=4510.92..4703.77 rows=292 width=37) (actual time=12.427..14.356 rows=238.00 loops=1)
+              Group Key: t.title_id
+              Buffers: shared hit=1822
+              ->  Merge Join  (cost=4510.92..4699.39 rows=292 width=33) (actual time=12.410..14.258 rows=373.00 loops=1)
+                    Merge Cond: (v.title_id = t.title_id)
+                    Buffers: shared hit=1822
+                    ->  Gather Merge  (cost=4510.64..4543.92 rows=292 width=8) (actual time=12.383..13.631 rows=373.00 loops=1)
+                          Workers Planned: 1
+                          Workers Launched: 1
+                          Buffers: shared hit=1773
+                          ->  Sort  (cost=3510.63..3511.06 rows=172 width=8) (actual time=9.857..9.864 rows=186.50 loops=2)
+                                Sort Key: v.title_id, v.profile_id
+                                Sort Method: quicksort  Memory: 30kB
+                                Buffers: shared hit=1773
+                                Worker 0:  Sort Method: quicksort  Memory: 28kB
+                                ->  Parallel Seq Scan on viewing_activity v  (cost=0.00..3504.24 rows=172 width=8) (actual time=9.741..9.789 rows=186.50 loops=2)
+                                      Filter: ((started_at >= '2026-06-30 00:00:00+05:30'::timestamp with time zone) AND (started_at < '2026-07-01 00:00:00+05:30'::timestamp with time zone))
+                                      Rows Removed by Filter: 100014
+                                      Buffers: shared hit=1736
+                    ->  Index Scan using titles_pkey on titles t  (cost=0.28..144.32 rows=3000 width=29) (actual time=0.022..0.382 rows=2965.00 loops=1)
+                          Index Searches: 1
+                          Buffers: shared hit=49
+Planning:
+  Buffers: shared hit=154
+Planning Time: 1.083 ms
+Execution Time: 14.542 ms
+=== R03 run 2 ===
+Limit  (cost=4710.08..4710.11 rows=10 width=37) (actual time=8.931..9.427 rows=10.00 loops=1)
+  Buffers: shared hit=1825
+  ->  Sort  (cost=4710.08..4710.81 rows=292 width=37) (actual time=8.929..9.424 rows=10.00 loops=1)
+        Sort Key: (count(DISTINCT v.profile_id)) DESC
+        Sort Method: top-N heapsort  Memory: 25kB
+        Buffers: shared hit=1825
+        ->  GroupAggregate  (cost=4510.92..4703.77 rows=292 width=37) (actual time=8.574..9.377 rows=238.00 loops=1)
+              Group Key: t.title_id
+              Buffers: shared hit=1822
+              ->  Merge Join  (cost=4510.92..4699.39 rows=292 width=33) (actual time=8.562..9.333 rows=373.00 loops=1)
+                    Merge Cond: (v.title_id = t.title_id)
+                    Buffers: shared hit=1822
+                    ->  Gather Merge  (cost=4510.64..4543.92 rows=292 width=8) (actual time=8.545..9.059 rows=373.00 loops=1)
+                          Workers Planned: 1
+                          Workers Launched: 1
+                          Buffers: shared hit=1773
+                          ->  Sort  (cost=3510.63..3511.06 rows=172 width=8) (actual time=6.739..6.742 rows=186.50 loops=2)
+                                Sort Key: v.title_id, v.profile_id
+                                Sort Method: quicksort  Memory: 30kB
+                                Buffers: shared hit=1773
+                                Worker 0:  Sort Method: quicksort  Memory: 28kB
+                                ->  Parallel Seq Scan on viewing_activity v  (cost=0.00..3504.24 rows=172 width=8) (actual time=6.670..6.697 rows=186.50 loops=2)
+                                      Filter: ((started_at >= '2026-06-30 00:00:00+05:30'::timestamp with time zone) AND (started_at < '2026-07-01 00:00:00+05:30'::timestamp with time zone))
+                                      Rows Removed by Filter: 100014
+                                      Buffers: shared hit=1736
+                    ->  Index Scan using titles_pkey on titles t  (cost=0.28..144.32 rows=3000 width=29) (actual time=0.014..0.177 rows=2965.00 loops=1)
+                          Index Searches: 1
+                          Buffers: shared hit=49
+Planning:
+  Buffers: shared hit=154
+Planning Time: 0.662 ms
+Execution Time: 9.500 ms
+=== R03 run 3 ===
+Limit  (cost=4710.08..4710.11 rows=10 width=37) (actual time=8.032..8.544 rows=10.00 loops=1)
+  Buffers: shared hit=1825
+  ->  Sort  (cost=4710.08..4710.81 rows=292 width=37) (actual time=8.031..8.542 rows=10.00 loops=1)
+        Sort Key: (count(DISTINCT v.profile_id)) DESC
+        Sort Method: top-N heapsort  Memory: 25kB
+        Buffers: shared hit=1825
+        ->  GroupAggregate  (cost=4510.92..4703.77 rows=292 width=37) (actual time=7.702..8.518 rows=238.00 loops=1)
+              Group Key: t.title_id
+              Buffers: shared hit=1822
+              ->  Merge Join  (cost=4510.92..4699.39 rows=292 width=33) (actual time=7.680..8.467 rows=373.00 loops=1)
+                    Merge Cond: (v.title_id = t.title_id)
+                    Buffers: shared hit=1822
+                    ->  Gather Merge  (cost=4510.64..4543.92 rows=292 width=8) (actual time=7.666..8.197 rows=373.00 loops=1)
+                          Workers Planned: 1
+                          Workers Launched: 1
+                          Buffers: shared hit=1773
+                          ->  Sort  (cost=3510.63..3511.06 rows=172 width=8) (actual time=6.111..6.115 rows=186.50 loops=2)
+                                Sort Key: v.title_id, v.profile_id
+                                Sort Method: quicksort  Memory: 30kB
+                                Buffers: shared hit=1773
+                                Worker 0:  Sort Method: quicksort  Memory: 28kB
+                                ->  Parallel Seq Scan on viewing_activity v  (cost=0.00..3504.24 rows=172 width=8) (actual time=6.049..6.074 rows=186.50 loops=2)
+                                      Filter: ((started_at >= '2026-06-30 00:00:00+05:30'::timestamp with time zone) AND (started_at < '2026-07-01 00:00:00+05:30'::timestamp with time zone))
+                                      Rows Removed by Filter: 100014
+                                      Buffers: shared hit=1736
+                    ->  Index Scan using titles_pkey on titles t  (cost=0.28..144.32 rows=3000 width=29) (actual time=0.012..0.173 rows=2965.00 loops=1)
+                          Index Searches: 1
+                          Buffers: shared hit=49
+Planning:
+  Buffers: shared hit=154
+Planning Time: 0.630 ms
+Execution Time: 8.598 ms
