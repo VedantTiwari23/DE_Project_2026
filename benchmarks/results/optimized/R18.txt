@@ -1,0 +1,80 @@
+=== R18 run 1 ===
+GroupAggregate  (cost=8959.50..10977.99 rows=67283 width=45) (actual time=20.322..25.408 rows=26.00 loops=1)
+  Group Key: (date_trunc('month'::text, started_at)), device_type
+  Buffers: shared hit=6539 read=334
+  ->  Sort  (cost=8959.50..9127.71 rows=67283 width=17) (actual time=20.177..21.624 rows=66546.00 loops=1)
+        Sort Key: (date_trunc('month'::text, started_at)), device_type
+        Sort Method: quicksort  Memory: 4000kB
+        Buffers: shared hit=6539 read=334
+        ->  Index Scan using idx_viewing_started_desc on viewing_activity  (cost=0.42..3564.10 rows=67283 width=17) (actual time=0.012..11.985 rows=66546.00 loops=1)
+              Index Cond: (started_at >= '2026-01-01 00:00:00+05:30'::timestamp with time zone)
+              Index Searches: 1
+              Buffers: shared hit=6533 read=334
+Planning:
+  Buffers: shared hit=261
+Planning Time: 0.364 ms
+Execution Time: 25.446 ms
+=== R18 run 2 ===
+GroupAggregate  (cost=8959.50..10977.99 rows=67283 width=45) (actual time=17.953..22.303 rows=26.00 loops=1)
+  Group Key: (date_trunc('month'::text, started_at)), device_type
+  Buffers: shared hit=6873
+  ->  Sort  (cost=8959.50..9127.71 rows=67283 width=17) (actual time=17.832..19.061 rows=66546.00 loops=1)
+        Sort Key: (date_trunc('month'::text, started_at)), device_type
+        Sort Method: quicksort  Memory: 4000kB
+        Buffers: shared hit=6873
+        ->  Index Scan using idx_viewing_started_desc on viewing_activity  (cost=0.42..3564.10 rows=67283 width=17) (actual time=0.010..9.904 rows=66546.00 loops=1)
+              Index Cond: (started_at >= '2026-01-01 00:00:00+05:30'::timestamp with time zone)
+              Index Searches: 1
+              Buffers: shared hit=6867
+Planning:
+  Buffers: shared hit=261
+Planning Time: 0.336 ms
+Execution Time: 22.346 ms
+=== R18 run 3 ===
+GroupAggregate  (cost=8959.50..10977.99 rows=67283 width=45) (actual time=16.098..20.176 rows=26.00 loops=1)
+  Group Key: (date_trunc('month'::text, started_at)), device_type
+  Buffers: shared hit=6873
+  ->  Sort  (cost=8959.50..9127.71 rows=67283 width=17) (actual time=15.989..17.162 rows=66546.00 loops=1)
+        Sort Key: (date_trunc('month'::text, started_at)), device_type
+        Sort Method: quicksort  Memory: 4000kB
+        Buffers: shared hit=6873
+        ->  Index Scan using idx_viewing_started_desc on viewing_activity  (cost=0.42..3564.10 rows=67283 width=17) (actual time=0.010..9.158 rows=66546.00 loops=1)
+              Index Cond: (started_at >= '2026-01-01 00:00:00+05:30'::timestamp with time zone)
+              Index Searches: 1
+              Buffers: shared hit=6867
+Planning:
+  Buffers: shared hit=261
+Planning Time: 0.350 ms
+Execution Time: 20.207 ms
+=== R18 run 4 ===
+GroupAggregate  (cost=8959.50..10977.99 rows=67283 width=45) (actual time=15.193..19.333 rows=26.00 loops=1)
+  Group Key: (date_trunc('month'::text, started_at)), device_type
+  Buffers: shared hit=6873
+  ->  Sort  (cost=8959.50..9127.71 rows=67283 width=17) (actual time=15.091..16.269 rows=66546.00 loops=1)
+        Sort Key: (date_trunc('month'::text, started_at)), device_type
+        Sort Method: quicksort  Memory: 4000kB
+        Buffers: shared hit=6873
+        ->  Index Scan using idx_viewing_started_desc on viewing_activity  (cost=0.42..3564.10 rows=67283 width=17) (actual time=0.010..8.696 rows=66546.00 loops=1)
+              Index Cond: (started_at >= '2026-01-01 00:00:00+05:30'::timestamp with time zone)
+              Index Searches: 1
+              Buffers: shared hit=6867
+Planning:
+  Buffers: shared hit=261
+Planning Time: 0.335 ms
+Execution Time: 19.365 ms
+=== R18 run 5 ===
+GroupAggregate  (cost=8959.50..10977.99 rows=67283 width=45) (actual time=15.145..19.156 rows=26.00 loops=1)
+  Group Key: (date_trunc('month'::text, started_at)), device_type
+  Buffers: shared hit=6873
+  ->  Sort  (cost=8959.50..9127.71 rows=67283 width=17) (actual time=15.027..16.195 rows=66546.00 loops=1)
+        Sort Key: (date_trunc('month'::text, started_at)), device_type
+        Sort Method: quicksort  Memory: 4000kB
+        Buffers: shared hit=6873
+        ->  Index Scan using idx_viewing_started_desc on viewing_activity  (cost=0.42..3564.10 rows=67283 width=17) (actual time=0.010..8.402 rows=66546.00 loops=1)
+              Index Cond: (started_at >= '2026-01-01 00:00:00+05:30'::timestamp with time zone)
+              Index Searches: 1
+              Buffers: shared hit=6867
+Planning:
+  Buffers: shared hit=261
+Planning Time: 0.357 ms
+Execution Time: 19.188 ms

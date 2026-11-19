@@ -1,0 +1,50 @@
+=== R24 run 1 ===
+Index Only Scan using idx_profiles_account on profiles  (cost=0.42..11.97 rows=3 width=22) (actual time=0.217..0.218 rows=4.00 loops=1)
+  Index Cond: (account_id = 1409)
+  Heap Fetches: 4
+  Index Searches: 1
+  Buffers: shared hit=3 read=1
+Planning:
+  Buffers: shared hit=149
+Planning Time: 0.234 ms
+Execution Time: 0.237 ms
+=== R24 run 2 ===
+Index Only Scan using idx_profiles_account on profiles  (cost=0.42..11.97 rows=3 width=22) (actual time=0.011..0.012 rows=4.00 loops=1)
+  Index Cond: (account_id = 1409)
+  Heap Fetches: 4
+  Index Searches: 1
+  Buffers: shared hit=4
+Planning:
+  Buffers: shared hit=147
+Planning Time: 0.222 ms
+Execution Time: 0.032 ms
+=== R24 run 3 ===
+Index Only Scan using idx_profiles_account on profiles  (cost=0.42..11.97 rows=3 width=22) (actual time=0.011..0.012 rows=4.00 loops=1)
+  Index Cond: (account_id = 1409)
+  Heap Fetches: 4
+  Index Searches: 1
+  Buffers: shared hit=4
+Planning:
+  Buffers: shared hit=147
+Planning Time: 0.211 ms
+Execution Time: 0.032 ms
+=== R24 run 4 ===
+Index Only Scan using idx_profiles_account on profiles  (cost=0.42..11.97 rows=3 width=22) (actual time=0.020..0.021 rows=4.00 loops=1)
+  Index Cond: (account_id = 1409)
+  Heap Fetches: 4
+  Index Searches: 1
+  Buffers: shared hit=4
+Planning:
+  Buffers: shared hit=147
+Planning Time: 0.225 ms
+Execution Time: 0.039 ms
+=== R24 run 5 ===
+Index Only Scan using idx_profiles_account on profiles  (cost=0.42..11.97 rows=3 width=22) (actual time=0.010..0.011 rows=4.00 loops=1)
+  Index Cond: (account_id = 1409)
+  Heap Fetches: 4
+  Index Searches: 1
+  Buffers: shared hit=4
+Planning:
+  Buffers: shared hit=147
+Planning Time: 0.214 ms
+Execution Time: 0.028 ms

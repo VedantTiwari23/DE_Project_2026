@@ -1,0 +1,155 @@
+=== R20 run 1 ===
+Limit  (cost=755.95..755.98 rows=10 width=37) (actual time=1.790..1.791 rows=10.00 loops=1)
+  Buffers: shared hit=382 read=12
+  ->  Sort  (cost=755.95..764.47 rows=3406 width=37) (actual time=1.789..1.790 rows=10.00 loops=1)
+        Sort Key: (count(*)) DESC
+        Sort Method: top-N heapsort  Memory: 25kB
+        Buffers: shared hit=382 read=12
+        ->  HashAggregate  (cost=648.29..682.35 rows=3406 width=37) (actual time=1.598..1.683 rows=1917.00 loops=1)
+              Group Key: m.title_id, t.name
+              Batches: 1  Memory Usage: 217kB
+              Buffers: shared hit=379 read=12
+              ->  Hash Join  (cost=210.70..622.74 rows=3406 width=29) (actual time=0.474..1.232 rows=3328.00 loops=1)
+                    Hash Cond: (m.title_id = t.title_id)
+                    Buffers: shared hit=379 read=12
+                    ->  Bitmap Heap Scan on my_list m  (cost=91.20..494.29 rows=3406 width=4) (actual time=0.130..0.579 rows=3328.00 loops=1)
+                          Recheck Cond: ((added_at >= '2026-06-01 00:00:00+05:30'::timestamp with time zone) AND (added_at < '2026-07-01 00:00:00+05:30'::timestamp with time zone))
+                          Heap Blocks: exact=325
+                          Buffers: shared hit=327 read=12
+                          ->  Bitmap Index Scan on idx_my_list_added  (cost=0.00..90.35 rows=3406 width=0) (actual time=0.110..0.111 rows=3328.00 loops=1)
+                                Index Cond: ((added_at >= '2026-06-01 00:00:00+05:30'::timestamp with time zone) AND (added_at < '2026-07-01 00:00:00+05:30'::timestamp with time zone))
+                                Index Searches: 1
+                                Buffers: shared hit=2 read=12
+                    ->  Hash  (cost=82.00..82.00 rows=3000 width=29) (actual time=0.337..0.337 rows=3000.00 loops=1)
+                          Buckets: 4096  Batches: 1  Memory Usage: 218kB
+                          Buffers: shared hit=52
+                          ->  Seq Scan on titles t  (cost=0.00..82.00 rows=3000 width=29) (actual time=0.003..0.177 rows=3000.00 loops=1)
+                                Buffers: shared hit=52
+Planning:
+  Buffers: shared hit=298 read=2
+Planning Time: 0.514 ms
+Execution Time: 1.825 ms
+=== R20 run 2 ===
+Limit  (cost=755.95..755.98 rows=10 width=37) (actual time=1.706..1.707 rows=10.00 loops=1)
+  Buffers: shared hit=394
+  ->  Sort  (cost=755.95..764.47 rows=3406 width=37) (actual time=1.705..1.706 rows=10.00 loops=1)
+        Sort Key: (count(*)) DESC
+        Sort Method: top-N heapsort  Memory: 25kB
+        Buffers: shared hit=394
+        ->  HashAggregate  (cost=648.29..682.35 rows=3406 width=37) (actual time=1.507..1.597 rows=1917.00 loops=1)
+              Group Key: m.title_id, t.name
+              Batches: 1  Memory Usage: 217kB
+              Buffers: shared hit=391
+              ->  Hash Join  (cost=210.70..622.74 rows=3406 width=29) (actual time=0.443..1.157 rows=3328.00 loops=1)
+                    Hash Cond: (m.title_id = t.title_id)
+                    Buffers: shared hit=391
+                    ->  Bitmap Heap Scan on my_list m  (cost=91.20..494.29 rows=3406 width=4) (actual time=0.099..0.508 rows=3328.00 loops=1)
+                          Recheck Cond: ((added_at >= '2026-06-01 00:00:00+05:30'::timestamp with time zone) AND (added_at < '2026-07-01 00:00:00+05:30'::timestamp with time zone))
+                          Heap Blocks: exact=325
+                          Buffers: shared hit=339
+                          ->  Bitmap Index Scan on idx_my_list_added  (cost=0.00..90.35 rows=3406 width=0) (actual time=0.080..0.080 rows=3328.00 loops=1)
+                                Index Cond: ((added_at >= '2026-06-01 00:00:00+05:30'::timestamp with time zone) AND (added_at < '2026-07-01 00:00:00+05:30'::timestamp with time zone))
+                                Index Searches: 1
+                                Buffers: shared hit=14
+                    ->  Hash  (cost=82.00..82.00 rows=3000 width=29) (actual time=0.338..0.338 rows=3000.00 loops=1)
+                          Buckets: 4096  Batches: 1  Memory Usage: 218kB
+                          Buffers: shared hit=52
+                          ->  Seq Scan on titles t  (cost=0.00..82.00 rows=3000 width=29) (actual time=0.003..0.170 rows=3000.00 loops=1)
+                                Buffers: shared hit=52
+Planning:
+  Buffers: shared hit=300
+Planning Time: 0.434 ms
+Execution Time: 1.739 ms
+=== R20 run 3 ===
+Limit  (cost=755.95..755.98 rows=10 width=37) (actual time=1.653..1.654 rows=10.00 loops=1)
+  Buffers: shared hit=394
+  ->  Sort  (cost=755.95..764.47 rows=3406 width=37) (actual time=1.652..1.653 rows=10.00 loops=1)
+        Sort Key: (count(*)) DESC
+        Sort Method: top-N heapsort  Memory: 25kB
+        Buffers: shared hit=394
+        ->  HashAggregate  (cost=648.29..682.35 rows=3406 width=37) (actual time=1.438..1.534 rows=1917.00 loops=1)
+              Group Key: m.title_id, t.name
+              Batches: 1  Memory Usage: 217kB
+              Buffers: shared hit=391
+              ->  Hash Join  (cost=210.70..622.74 rows=3406 width=29) (actual time=0.465..1.122 rows=3328.00 loops=1)
+                    Hash Cond: (m.title_id = t.title_id)
+                    Buffers: shared hit=391
+                    ->  Bitmap Heap Scan on my_list m  (cost=91.20..494.29 rows=3406 width=4) (actual time=0.088..0.455 rows=3328.00 loops=1)
+                          Recheck Cond: ((added_at >= '2026-06-01 00:00:00+05:30'::timestamp with time zone) AND (added_at < '2026-07-01 00:00:00+05:30'::timestamp with time zone))
+                          Heap Blocks: exact=325
+                          Buffers: shared hit=339
+                          ->  Bitmap Index Scan on idx_my_list_added  (cost=0.00..90.35 rows=3406 width=0) (actual time=0.071..0.071 rows=3328.00 loops=1)
+                                Index Cond: ((added_at >= '2026-06-01 00:00:00+05:30'::timestamp with time zone) AND (added_at < '2026-07-01 00:00:00+05:30'::timestamp with time zone))
+                                Index Searches: 1
+                                Buffers: shared hit=14
+                    ->  Hash  (cost=82.00..82.00 rows=3000 width=29) (actual time=0.370..0.371 rows=3000.00 loops=1)
+                          Buckets: 4096  Batches: 1  Memory Usage: 218kB
+                          Buffers: shared hit=52
+                          ->  Seq Scan on titles t  (cost=0.00..82.00 rows=3000 width=29) (actual time=0.003..0.191 rows=3000.00 loops=1)
+                                Buffers: shared hit=52
+Planning:
+  Buffers: shared hit=300
+Planning Time: 0.524 ms
+Execution Time: 1.694 ms
+=== R20 run 4 ===
+Limit  (cost=755.95..755.98 rows=10 width=37) (actual time=1.915..1.916 rows=10.00 loops=1)
+  Buffers: shared hit=394
+  ->  Sort  (cost=755.95..764.47 rows=3406 width=37) (actual time=1.914..1.915 rows=10.00 loops=1)
+        Sort Key: (count(*)) DESC
+        Sort Method: top-N heapsort  Memory: 25kB
+        Buffers: shared hit=394
+        ->  HashAggregate  (cost=648.29..682.35 rows=3406 width=37) (actual time=1.683..1.783 rows=1917.00 loops=1)
+              Group Key: m.title_id, t.name
+              Batches: 1  Memory Usage: 217kB
+              Buffers: shared hit=391
+              ->  Hash Join  (cost=210.70..622.74 rows=3406 width=29) (actual time=0.517..1.281 rows=3328.00 loops=1)
+                    Hash Cond: (m.title_id = t.title_id)
+                    Buffers: shared hit=391
+                    ->  Bitmap Heap Scan on my_list m  (cost=91.20..494.29 rows=3406 width=4) (actual time=0.113..0.530 rows=3328.00 loops=1)
+                          Recheck Cond: ((added_at >= '2026-06-01 00:00:00+05:30'::timestamp with time zone) AND (added_at < '2026-07-01 00:00:00+05:30'::timestamp with time zone))
+                          Heap Blocks: exact=325
+                          Buffers: shared hit=339
+                          ->  Bitmap Index Scan on idx_my_list_added  (cost=0.00..90.35 rows=3406 width=0) (actual time=0.091..0.091 rows=3328.00 loops=1)
+                                Index Cond: ((added_at >= '2026-06-01 00:00:00+05:30'::timestamp with time zone) AND (added_at < '2026-07-01 00:00:00+05:30'::timestamp with time zone))
+                                Index Searches: 1
+                                Buffers: shared hit=14
+                    ->  Hash  (cost=82.00..82.00 rows=3000 width=29) (actual time=0.397..0.398 rows=3000.00 loops=1)
+                          Buckets: 4096  Batches: 1  Memory Usage: 218kB
+                          Buffers: shared hit=52
+                          ->  Seq Scan on titles t  (cost=0.00..82.00 rows=3000 width=29) (actual time=0.003..0.200 rows=3000.00 loops=1)
+                                Buffers: shared hit=52
+Planning:
+  Buffers: shared hit=300
+Planning Time: 0.509 ms
+Execution Time: 1.953 ms
+=== R20 run 5 ===
+Limit  (cost=755.95..755.98 rows=10 width=37) (actual time=1.951..1.953 rows=10.00 loops=1)
+  Buffers: shared hit=394
+  ->  Sort  (cost=755.95..764.47 rows=3406 width=37) (actual time=1.951..1.951 rows=10.00 loops=1)
+        Sort Key: (count(*)) DESC
+        Sort Method: top-N heapsort  Memory: 25kB
+        Buffers: shared hit=394
+        ->  HashAggregate  (cost=648.29..682.35 rows=3406 width=37) (actual time=1.712..1.818 rows=1917.00 loops=1)
+              Group Key: m.title_id, t.name
+              Batches: 1  Memory Usage: 217kB
+              Buffers: shared hit=391
+              ->  Hash Join  (cost=210.70..622.74 rows=3406 width=29) (actual time=0.507..1.315 rows=3328.00 loops=1)
+                    Hash Cond: (m.title_id = t.title_id)
+                    Buffers: shared hit=391
+                    ->  Bitmap Heap Scan on my_list m  (cost=91.20..494.29 rows=3406 width=4) (actual time=0.114..0.561 rows=3328.00 loops=1)
+                          Recheck Cond: ((added_at >= '2026-06-01 00:00:00+05:30'::timestamp with time zone) AND (added_at < '2026-07-01 00:00:00+05:30'::timestamp with time zone))
+                          Heap Blocks: exact=325
+                          Buffers: shared hit=339
+                          ->  Bitmap Index Scan on idx_my_list_added  (cost=0.00..90.35 rows=3406 width=0) (actual time=0.093..0.093 rows=3328.00 loops=1)
+                                Index Cond: ((added_at >= '2026-06-01 00:00:00+05:30'::timestamp with time zone) AND (added_at < '2026-07-01 00:00:00+05:30'::timestamp with time zone))
+                                Index Searches: 1
+                                Buffers: shared hit=14
+                    ->  Hash  (cost=82.00..82.00 rows=3000 width=29) (actual time=0.386..0.386 rows=3000.00 loops=1)
+                          Buckets: 4096  Batches: 1  Memory Usage: 218kB
+                          Buffers: shared hit=52
+                          ->  Seq Scan on titles t  (cost=0.00..82.00 rows=3000 width=29) (actual time=0.003..0.199 rows=3000.00 loops=1)
+                                Buffers: shared hit=52
+Planning:
+  Buffers: shared hit=300
+Planning Time: 0.470 ms
+Execution Time: 1.992 ms

@@ -1,0 +1,85 @@
+=== W03 run 1 ===
+Update on accounts  (cost=1.34..9.36 rows=0 width=0) (actual time=1.235..1.236 rows=0.00 loops=1)
+  Buffers: shared hit=42 read=2 dirtied=2
+  InitPlan 1
+    ->  Seq Scan on plans  (cost=0.00..1.05 rows=1 width=4) (actual time=0.010..0.011 rows=1.00 loops=1)
+          Filter: ((plan_name)::text = 'STANDARD'::text)
+          Rows Removed by Filter: 3
+          Buffers: shared hit=1
+  ->  Index Scan using accounts_pkey on accounts  (cost=0.29..8.30 rows=1 width=10) (actual time=0.052..0.053 rows=1.00 loops=1)
+        Index Cond: (account_id = 1409)
+        Index Searches: 1
+        Buffers: shared hit=4
+Planning:
+  Buffers: shared hit=198
+Planning Time: 1.090 ms
+Trigger for constraint accounts_plan_id_fkey: time=0.215 calls=1
+Execution Time: 1.603 ms
+=== W03 run 2 ===
+Update on accounts  (cost=1.34..9.36 rows=0 width=0) (actual time=0.458..0.459 rows=0.00 loops=1)
+  Buffers: shared hit=48 dirtied=1
+  InitPlan 1
+    ->  Seq Scan on plans  (cost=0.00..1.05 rows=1 width=4) (actual time=0.009..0.009 rows=1.00 loops=1)
+          Filter: ((plan_name)::text = 'STANDARD'::text)
+          Rows Removed by Filter: 3
+          Buffers: shared hit=1
+  ->  Index Scan using accounts_pkey on accounts  (cost=0.29..8.30 rows=1 width=10) (actual time=0.039..0.042 rows=1.00 loops=1)
+        Index Cond: (account_id = 1409)
+        Index Searches: 1
+        Buffers: shared hit=6
+Planning:
+  Buffers: shared hit=198
+Planning Time: 1.500 ms
+Trigger for constraint accounts_plan_id_fkey: time=0.212 calls=1
+Execution Time: 0.819 ms
+=== W03 run 3 ===
+Update on accounts  (cost=1.34..9.36 rows=0 width=0) (actual time=0.329..0.329 rows=0.00 loops=1)
+  Buffers: shared hit=48 dirtied=1
+  InitPlan 1
+    ->  Seq Scan on plans  (cost=0.00..1.05 rows=1 width=4) (actual time=0.008..0.008 rows=1.00 loops=1)
+          Filter: ((plan_name)::text = 'STANDARD'::text)
+          Rows Removed by Filter: 3
+          Buffers: shared hit=1
+  ->  Index Scan using accounts_pkey on accounts  (cost=0.29..8.30 rows=1 width=10) (actual time=0.036..0.037 rows=1.00 loops=1)
+        Index Cond: (account_id = 1409)
+        Index Searches: 1
+        Buffers: shared hit=6
+Planning:
+  Buffers: shared hit=198
+Planning Time: 0.785 ms
+Trigger for constraint accounts_plan_id_fkey: time=0.152 calls=1
+Execution Time: 0.608 ms
+=== W03 run 4 ===
+Update on accounts  (cost=1.34..9.36 rows=0 width=0) (actual time=0.348..0.349 rows=0.00 loops=1)
+  Buffers: shared hit=48 dirtied=1
+  InitPlan 1
+    ->  Seq Scan on plans  (cost=0.00..1.05 rows=1 width=4) (actual time=0.006..0.007 rows=1.00 loops=1)
+          Filter: ((plan_name)::text = 'STANDARD'::text)
+          Rows Removed by Filter: 3
+          Buffers: shared hit=1
+  ->  Index Scan using accounts_pkey on accounts  (cost=0.29..8.30 rows=1 width=10) (actual time=0.028..0.030 rows=1.00 loops=1)
+        Index Cond: (account_id = 1409)
+        Index Searches: 1
+        Buffers: shared hit=6
+Planning:
+  Buffers: shared hit=198
+Planning Time: 0.910 ms
+Trigger for constraint accounts_plan_id_fkey: time=0.176 calls=1
+Execution Time: 0.635 ms
+=== W03 run 5 ===
+Update on accounts  (cost=1.34..9.36 rows=0 width=0) (actual time=0.330..0.330 rows=0.00 loops=1)
+  Buffers: shared hit=48 dirtied=1
+  InitPlan 1
+    ->  Seq Scan on plans  (cost=0.00..1.05 rows=1 width=4) (actual time=0.006..0.007 rows=1.00 loops=1)
+          Filter: ((plan_name)::text = 'STANDARD'::text)
+          Rows Removed by Filter: 3
+          Buffers: shared hit=1
+  ->  Index Scan using accounts_pkey on accounts  (cost=0.29..8.30 rows=1 width=10) (actual time=0.030..0.031 rows=1.00 loops=1)
+        Index Cond: (account_id = 1409)
+        Index Searches: 1
+        Buffers: shared hit=6
+Planning:
+  Buffers: shared hit=198
+Planning Time: 0.898 ms
+Trigger for constraint accounts_plan_id_fkey: time=0.145 calls=1
+Execution Time: 0.589 ms

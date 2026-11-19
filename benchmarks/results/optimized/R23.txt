@@ -1,0 +1,55 @@
+=== R23 run 1 ===
+Limit  (cost=7189.78..7190.97 rows=25 width=28) (actual time=34.982..34.987 rows=25.00 loops=1)
+  Buffers: shared hit=14865 read=503
+  ->  Index Only Scan using idx_viewing_started_desc on viewing_activity  (cost=0.42..9605.45 rows=200401 width=28) (actual time=0.023..30.860 rows=150025.00 loops=1)
+        Heap Fetches: 150025
+        Index Searches: 1
+        Buffers: shared hit=14865 read=503
+Planning:
+  Buffers: shared hit=228
+Planning Time: 1.257 ms
+Execution Time: 35.011 ms
+=== R23 run 2 ===
+Limit  (cost=7189.78..7190.97 rows=25 width=28) (actual time=22.351..22.355 rows=25.00 loops=1)
+  Buffers: shared hit=15368
+  ->  Index Only Scan using idx_viewing_started_desc on viewing_activity  (cost=0.42..9605.45 rows=200401 width=28) (actual time=0.019..18.453 rows=150025.00 loops=1)
+        Heap Fetches: 150025
+        Index Searches: 1
+        Buffers: shared hit=15368
+Planning:
+  Buffers: shared hit=228
+Planning Time: 0.336 ms
+Execution Time: 22.368 ms
+=== R23 run 3 ===
+Limit  (cost=7189.78..7190.97 rows=25 width=28) (actual time=19.832..19.836 rows=25.00 loops=1)
+  Buffers: shared hit=15368
+  ->  Index Only Scan using idx_viewing_started_desc on viewing_activity  (cost=0.42..9605.45 rows=200401 width=28) (actual time=0.013..16.438 rows=150025.00 loops=1)
+        Heap Fetches: 150025
+        Index Searches: 1
+        Buffers: shared hit=15368
+Planning:
+  Buffers: shared hit=228
+Planning Time: 0.350 ms
+Execution Time: 19.851 ms
+=== R23 run 4 ===
+Limit  (cost=7189.78..7190.97 rows=25 width=28) (actual time=17.615..17.619 rows=25.00 loops=1)
+  Buffers: shared hit=15368
+  ->  Index Only Scan using idx_viewing_started_desc on viewing_activity  (cost=0.42..9605.45 rows=200401 width=28) (actual time=0.012..14.604 rows=150025.00 loops=1)
+        Heap Fetches: 150025
+        Index Searches: 1
+        Buffers: shared hit=15368
+Planning:
+  Buffers: shared hit=228
+Planning Time: 0.354 ms
+Execution Time: 17.632 ms
+=== R23 run 5 ===
+Limit  (cost=7189.78..7190.97 rows=25 width=28) (actual time=16.382..16.385 rows=25.00 loops=1)
+  Buffers: shared hit=15368
+  ->  Index Only Scan using idx_viewing_started_desc on viewing_activity  (cost=0.42..9605.45 rows=200401 width=28) (actual time=0.013..13.551 rows=150025.00 loops=1)
+        Heap Fetches: 150025
+        Index Searches: 1
+        Buffers: shared hit=15368
+Planning:
+  Buffers: shared hit=228
+Planning Time: 0.357 ms
+Execution Time: 16.398 ms

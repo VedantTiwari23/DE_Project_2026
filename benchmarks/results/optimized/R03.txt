@@ -1,0 +1,155 @@
+=== R03 run 1 ===
+Limit  (cost=179.22..179.25 rows=10 width=37) (actual time=2.582..2.585 rows=10.00 loops=1)
+  Buffers: shared hit=109 read=2
+  ->  Sort  (cost=179.22..180.19 rows=385 width=37) (actual time=2.580..2.583 rows=10.00 loops=1)
+        Sort Key: (count(DISTINCT v.profile_id)) DESC
+        Sort Method: top-N heapsort  Memory: 25kB
+        Buffers: shared hit=109 read=2
+        ->  GroupAggregate  (cost=164.17..170.90 rows=385 width=37) (actual time=2.256..2.429 rows=238.00 loops=1)
+              Group Key: t.title_id
+              Buffers: shared hit=106 read=2
+              ->  Sort  (cost=164.17..165.13 rows=385 width=33) (actual time=2.236..2.264 rows=373.00 loops=1)
+                    Sort Key: t.title_id, v.profile_id
+                    Sort Method: quicksort  Memory: 44kB
+                    Buffers: shared hit=106 read=2
+                    ->  Hash Join  (cost=119.92..147.63 rows=385 width=33) (actual time=1.282..2.085 rows=373.00 loops=1)
+                          Hash Cond: (v.title_id = t.title_id)
+                          Buffers: shared hit=103 read=2
+                          ->  Index Only Scan using idx_viewing_started_desc on viewing_activity v  (cost=0.42..27.12 rows=385 width=8) (actual time=0.019..0.705 rows=373.00 loops=1)
+                                Index Cond: ((started_at >= '2026-06-30 00:00:00+05:30'::timestamp with time zone) AND (started_at < '2026-07-01 00:00:00+05:30'::timestamp with time zone))
+                                Heap Fetches: 373
+                                Index Searches: 1
+                                Buffers: shared hit=51 read=2
+                          ->  Hash  (cost=82.00..82.00 rows=3000 width=29) (actual time=1.199..1.200 rows=3000.00 loops=1)
+                                Buckets: 4096  Batches: 1  Memory Usage: 213kB
+                                Buffers: shared hit=52
+                                ->  Seq Scan on titles t  (cost=0.00..82.00 rows=3000 width=29) (actual time=0.020..0.556 rows=3000.00 loops=1)
+                                      Buffers: shared hit=52
+Planning:
+  Buffers: shared hit=396 read=3
+Planning Time: 2.841 ms
+Execution Time: 2.710 ms
+=== R03 run 2 ===
+Limit  (cost=179.22..179.25 rows=10 width=37) (actual time=1.854..1.858 rows=10.00 loops=1)
+  Buffers: shared hit=111
+  ->  Sort  (cost=179.22..180.19 rows=385 width=37) (actual time=1.853..1.855 rows=10.00 loops=1)
+        Sort Key: (count(DISTINCT v.profile_id)) DESC
+        Sort Method: top-N heapsort  Memory: 25kB
+        Buffers: shared hit=111
+        ->  GroupAggregate  (cost=164.17..170.90 rows=385 width=37) (actual time=1.581..1.779 rows=238.00 loops=1)
+              Group Key: t.title_id
+              Buffers: shared hit=108
+              ->  Sort  (cost=164.17..165.13 rows=385 width=33) (actual time=1.560..1.593 rows=373.00 loops=1)
+                    Sort Key: t.title_id, v.profile_id
+                    Sort Method: quicksort  Memory: 44kB
+                    Buffers: shared hit=108
+                    ->  Hash Join  (cost=119.92..147.63 rows=385 width=33) (actual time=1.153..1.408 rows=373.00 loops=1)
+                          Hash Cond: (v.title_id = t.title_id)
+                          Buffers: shared hit=105
+                          ->  Index Only Scan using idx_viewing_started_desc on viewing_activity v  (cost=0.42..27.12 rows=385 width=8) (actual time=0.016..0.154 rows=373.00 loops=1)
+                                Index Cond: ((started_at >= '2026-06-30 00:00:00+05:30'::timestamp with time zone) AND (started_at < '2026-07-01 00:00:00+05:30'::timestamp with time zone))
+                                Heap Fetches: 373
+                                Index Searches: 1
+                                Buffers: shared hit=53
+                          ->  Hash  (cost=82.00..82.00 rows=3000 width=29) (actual time=1.122..1.123 rows=3000.00 loops=1)
+                                Buckets: 4096  Batches: 1  Memory Usage: 213kB
+                                Buffers: shared hit=52
+                                ->  Seq Scan on titles t  (cost=0.00..82.00 rows=3000 width=29) (actual time=0.008..0.531 rows=3000.00 loops=1)
+                                      Buffers: shared hit=52
+Planning:
+  Buffers: shared hit=399
+Planning Time: 2.652 ms
+Execution Time: 1.970 ms
+=== R03 run 3 ===
+Limit  (cost=179.22..179.25 rows=10 width=37) (actual time=1.847..1.852 rows=10.00 loops=1)
+  Buffers: shared hit=111
+  ->  Sort  (cost=179.22..180.19 rows=385 width=37) (actual time=1.845..1.848 rows=10.00 loops=1)
+        Sort Key: (count(DISTINCT v.profile_id)) DESC
+        Sort Method: top-N heapsort  Memory: 25kB
+        Buffers: shared hit=111
+        ->  GroupAggregate  (cost=164.17..170.90 rows=385 width=37) (actual time=1.556..1.766 rows=238.00 loops=1)
+              Group Key: t.title_id
+              Buffers: shared hit=108
+              ->  Sort  (cost=164.17..165.13 rows=385 width=33) (actual time=1.542..1.570 rows=373.00 loops=1)
+                    Sort Key: t.title_id, v.profile_id
+                    Sort Method: quicksort  Memory: 44kB
+                    Buffers: shared hit=108
+                    ->  Hash Join  (cost=119.92..147.63 rows=385 width=33) (actual time=1.178..1.410 rows=373.00 loops=1)
+                          Hash Cond: (v.title_id = t.title_id)
+                          Buffers: shared hit=105
+                          ->  Index Only Scan using idx_viewing_started_desc on viewing_activity v  (cost=0.42..27.12 rows=385 width=8) (actual time=0.016..0.140 rows=373.00 loops=1)
+                                Index Cond: ((started_at >= '2026-06-30 00:00:00+05:30'::timestamp with time zone) AND (started_at < '2026-07-01 00:00:00+05:30'::timestamp with time zone))
+                                Heap Fetches: 373
+                                Index Searches: 1
+                                Buffers: shared hit=53
+                          ->  Hash  (cost=82.00..82.00 rows=3000 width=29) (actual time=1.148..1.149 rows=3000.00 loops=1)
+                                Buckets: 4096  Batches: 1  Memory Usage: 213kB
+                                Buffers: shared hit=52
+                                ->  Seq Scan on titles t  (cost=0.00..82.00 rows=3000 width=29) (actual time=0.007..0.553 rows=3000.00 loops=1)
+                                      Buffers: shared hit=52
+Planning:
+  Buffers: shared hit=399
+Planning Time: 2.193 ms
+Execution Time: 1.957 ms
+=== R03 run 4 ===
+Limit  (cost=179.22..179.25 rows=10 width=37) (actual time=0.993..0.996 rows=10.00 loops=1)
+  Buffers: shared hit=111
+  ->  Sort  (cost=179.22..180.19 rows=385 width=37) (actual time=0.992..0.994 rows=10.00 loops=1)
+        Sort Key: (count(DISTINCT v.profile_id)) DESC
+        Sort Method: top-N heapsort  Memory: 25kB
+        Buffers: shared hit=111
+        ->  GroupAggregate  (cost=164.17..170.90 rows=385 width=37) (actual time=0.862..0.953 rows=238.00 loops=1)
+              Group Key: t.title_id
+              Buffers: shared hit=108
+              ->  Sort  (cost=164.17..165.13 rows=385 width=33) (actual time=0.851..0.865 rows=373.00 loops=1)
+                    Sort Key: t.title_id, v.profile_id
+                    Sort Method: quicksort  Memory: 44kB
+                    Buffers: shared hit=108
+                    ->  Hash Join  (cost=119.92..147.63 rows=385 width=33) (actual time=0.645..0.775 rows=373.00 loops=1)
+                          Hash Cond: (v.title_id = t.title_id)
+                          Buffers: shared hit=105
+                          ->  Index Only Scan using idx_viewing_started_desc on viewing_activity v  (cost=0.42..27.12 rows=385 width=8) (actual time=0.009..0.080 rows=373.00 loops=1)
+                                Index Cond: ((started_at >= '2026-06-30 00:00:00+05:30'::timestamp with time zone) AND (started_at < '2026-07-01 00:00:00+05:30'::timestamp with time zone))
+                                Heap Fetches: 373
+                                Index Searches: 1
+                                Buffers: shared hit=53
+                          ->  Hash  (cost=82.00..82.00 rows=3000 width=29) (actual time=0.626..0.627 rows=3000.00 loops=1)
+                                Buckets: 4096  Batches: 1  Memory Usage: 213kB
+                                Buffers: shared hit=52
+                                ->  Seq Scan on titles t  (cost=0.00..82.00 rows=3000 width=29) (actual time=0.006..0.305 rows=3000.00 loops=1)
+                                      Buffers: shared hit=52
+Planning:
+  Buffers: shared hit=399
+Planning Time: 1.175 ms
+Execution Time: 1.061 ms
+=== R03 run 5 ===
+Limit  (cost=179.22..179.25 rows=10 width=37) (actual time=1.285..1.288 rows=10.00 loops=1)
+  Buffers: shared hit=111
+  ->  Sort  (cost=179.22..180.19 rows=385 width=37) (actual time=1.284..1.286 rows=10.00 loops=1)
+        Sort Key: (count(DISTINCT v.profile_id)) DESC
+        Sort Method: top-N heapsort  Memory: 25kB
+        Buffers: shared hit=111
+        ->  GroupAggregate  (cost=164.17..170.90 rows=385 width=37) (actual time=1.045..1.213 rows=238.00 loops=1)
+              Group Key: t.title_id
+              Buffers: shared hit=108
+              ->  Sort  (cost=164.17..165.13 rows=385 width=33) (actual time=1.028..1.055 rows=373.00 loops=1)
+                    Sort Key: t.title_id, v.profile_id
+                    Sort Method: quicksort  Memory: 44kB
+                    Buffers: shared hit=108
+                    ->  Hash Join  (cost=119.92..147.63 rows=385 width=33) (actual time=0.666..0.893 rows=373.00 loops=1)
+                          Hash Cond: (v.title_id = t.title_id)
+                          Buffers: shared hit=105
+                          ->  Index Only Scan using idx_viewing_started_desc on viewing_activity v  (cost=0.42..27.12 rows=385 width=8) (actual time=0.009..0.131 rows=373.00 loops=1)
+                                Index Cond: ((started_at >= '2026-06-30 00:00:00+05:30'::timestamp with time zone) AND (started_at < '2026-07-01 00:00:00+05:30'::timestamp with time zone))
+                                Heap Fetches: 373
+                                Index Searches: 1
+                                Buffers: shared hit=53
+                          ->  Hash  (cost=82.00..82.00 rows=3000 width=29) (actual time=0.645..0.646 rows=3000.00 loops=1)
+                                Buckets: 4096  Batches: 1  Memory Usage: 213kB
+                                Buffers: shared hit=52
+                                ->  Seq Scan on titles t  (cost=0.00..82.00 rows=3000 width=29) (actual time=0.008..0.314 rows=3000.00 loops=1)
+                                      Buffers: shared hit=52
+Planning:
+  Buffers: shared hit=399
+Planning Time: 1.843 ms
+Execution Time: 1.383 ms

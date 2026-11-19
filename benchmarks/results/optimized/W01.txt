@@ -1,0 +1,70 @@
+=== W01 run 1 ===
+Insert on viewing_activity  (cost=0.29..8.31 rows=0 width=0) (actual time=0.850..0.850 rows=0.00 loops=1)
+  Buffers: shared hit=177 read=4 dirtied=6
+  ->  Index Scan using uq_episode_series_season_num on episodes  (cost=0.29..8.31 rows=1 width=91) (actual time=0.017..0.018 rows=1.00 loops=1)
+        Index Cond: ((title_id = 2909) AND (season_no = 1) AND (episode_no = 5))
+        Index Searches: 1
+        Buffers: shared hit=3
+Planning:
+  Buffers: shared hit=91
+Planning Time: 0.564 ms
+Trigger for constraint viewing_activity_profile_id_fkey: time=0.620 calls=1
+Trigger for constraint viewing_activity_title_id_fkey: time=0.644 calls=1
+Trigger for constraint viewing_activity_episode_id_fkey: time=0.055 calls=1
+Execution Time: 2.200 ms
+=== W01 run 2 ===
+Insert on viewing_activity  (cost=0.29..8.31 rows=0 width=0) (actual time=0.655..0.655 rows=0.00 loops=1)
+  Buffers: shared hit=182
+  ->  Index Scan using uq_episode_series_season_num on episodes  (cost=0.29..8.31 rows=1 width=91) (actual time=0.022..0.023 rows=1.00 loops=1)
+        Index Cond: ((title_id = 2909) AND (season_no = 1) AND (episode_no = 5))
+        Index Searches: 1
+        Buffers: shared hit=3
+Planning:
+  Buffers: shared hit=91
+Planning Time: 0.591 ms
+Trigger for constraint viewing_activity_profile_id_fkey: time=0.594 calls=1
+Trigger for constraint viewing_activity_title_id_fkey: time=0.571 calls=1
+Trigger for constraint viewing_activity_episode_id_fkey: time=0.061 calls=1
+Execution Time: 1.919 ms
+=== W01 run 3 ===
+Insert on viewing_activity  (cost=0.29..8.31 rows=0 width=0) (actual time=0.493..0.493 rows=0.00 loops=1)
+  Buffers: shared hit=182
+  ->  Index Scan using uq_episode_series_season_num on episodes  (cost=0.29..8.31 rows=1 width=91) (actual time=0.017..0.018 rows=1.00 loops=1)
+        Index Cond: ((title_id = 2909) AND (season_no = 1) AND (episode_no = 5))
+        Index Searches: 1
+        Buffers: shared hit=3
+Planning:
+  Buffers: shared hit=91
+Planning Time: 0.482 ms
+Trigger for constraint viewing_activity_profile_id_fkey: time=0.551 calls=1
+Trigger for constraint viewing_activity_title_id_fkey: time=0.571 calls=1
+Trigger for constraint viewing_activity_episode_id_fkey: time=0.058 calls=1
+Execution Time: 1.706 ms
+=== W01 run 4 ===
+Insert on viewing_activity  (cost=0.29..8.31 rows=0 width=0) (actual time=0.456..0.457 rows=0.00 loops=1)
+  Buffers: shared hit=182
+  ->  Index Scan using uq_episode_series_season_num on episodes  (cost=0.29..8.31 rows=1 width=91) (actual time=0.017..0.018 rows=1.00 loops=1)
+        Index Cond: ((title_id = 2909) AND (season_no = 1) AND (episode_no = 5))
+        Index Searches: 1
+        Buffers: shared hit=3
+Planning:
+  Buffers: shared hit=91
+Planning Time: 0.442 ms
+Trigger for constraint viewing_activity_profile_id_fkey: time=0.488 calls=1
+Trigger for constraint viewing_activity_title_id_fkey: time=0.445 calls=1
+Trigger for constraint viewing_activity_episode_id_fkey: time=0.046 calls=1
+Execution Time: 1.468 ms
+=== W01 run 5 ===
+Insert on viewing_activity  (cost=0.29..8.31 rows=0 width=0) (actual time=0.586..0.587 rows=0.00 loops=1)
+  Buffers: shared hit=182
+  ->  Index Scan using uq_episode_series_season_num on episodes  (cost=0.29..8.31 rows=1 width=91) (actual time=0.018..0.019 rows=1.00 loops=1)
+        Index Cond: ((title_id = 2909) AND (season_no = 1) AND (episode_no = 5))
+        Index Searches: 1
+        Buffers: shared hit=3
+Planning:
+  Buffers: shared hit=91
+Planning Time: 0.508 ms
+Trigger for constraint viewing_activity_profile_id_fkey: time=0.399 calls=1
+Trigger for constraint viewing_activity_title_id_fkey: time=0.436 calls=1
+Trigger for constraint viewing_activity_episode_id_fkey: time=0.042 calls=1
+Execution Time: 1.500 ms
