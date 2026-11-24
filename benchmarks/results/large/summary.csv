@@ -1,0 +1,31 @@
+query_id,type,avg_ms,median_ms,min_ms,max_ms,scan_nodes
+R01,READ,0.142,0.138,0.109,0.188,Index Only Scan using idx_viewing_unfinished on viewing_activity | Index Scan using titles_pkey on titles
+R02,READ,0.091,0.082,0.067,0.148,Index Scan using uq_episode_series_season_num on episodes
+R03,READ,14.831,14.102,12.774,17.408,Index Only Scan using idx_viewing_started_desc on viewing_activity | Seq Scan on titles
+R04,READ,1.388,1.271,0.993,1.819,Seq Scan on titles | Seq Scan on genres | Bitmap Heap Scan on title_genres | Bitmap Index Scan on idx_title_genres_genre
+R05,READ,0.631,0.627,0.511,0.782,Bitmap Heap Scan on titles | Bitmap Index Scan on idx_titles_name_trgm
+R06,READ,0.191,0.183,0.141,0.249,Index Only Scan using idx_my_list_profile on my_list | Index Scan using titles_pkey on titles
+R07,READ,0.063,0.055,0.041,0.098,Index Scan using uq_episode_series_season_num on episodes
+R08,READ,312.447,298.113,281.904,381.221,Index Only Scan using idx_viewing_started_desc on viewing_activity
+R09,READ,374.183,358.291,340.774,436.021,Index Only Scan using idx_viewing_started_covering on viewing_activity | Seq Scan on title_genres | Seq Scan on genres
+R10,READ,0.101,0.039,0.031,0.371,Index Scan using idx_accounts_email_lower on accounts
+R11,READ,38.291,37.618,34.884,43.009,Bitmap Heap Scan on accounts | Index Scan using idx_invoices_failed on invoices
+R12,READ,19.847,19.411,17.908,22.709,Bitmap Heap Scan on accounts | Bitmap Index Scan on idx_accounts_cancelled
+R13,READ,0.188,0.181,0.139,0.254,Index Scan using uq_episode_series_season_num on episodes | Index Only Scan using idx_viewing_episodes_watched on viewing_activity
+R14,READ,2847.193,2714.882,2591.004,3119.218,Seq Scan on viewing_activity | Bitmap Heap Scan on profiles | Bitmap Index Scan on idx_profiles_kids | Seq Scan on titles
+R15,READ,91.274,88.831,84.903,100.213,Bitmap Heap Scan on accounts | Bitmap Index Scan on idx_accounts_active_plan | Seq Scan on plans
+R16,READ,2619.884,2548.771,2441.098,2919.774,Seq Scan on viewing_activity | Seq Scan on profiles | Seq Scan on accounts | Seq Scan on plans
+R17,READ,124.318,121.907,118.449,133.912,Seq Scan on ratings | Seq Scan on titles
+R18,READ,418.293,401.887,383.197,474.712,Index Scan using idx_viewing_started_desc on viewing_activity
+R19,READ,328.814,318.771,301.448,384.112,Index Scan using idx_viewing_title_started on viewing_activity | Index Scan using idx_titles_originals on titles
+R20,READ,37.219,36.883,34.182,41.919,Bitmap Heap Scan on my_list | Bitmap Index Scan on idx_my_list_added | Seq Scan on titles
+R21,READ,8.814,8.279,7.481,10.819,Index Only Scan using idx_accounts_on_hold on accounts
+R22,READ,0.179,0.161,0.139,0.221,Bitmap Heap Scan on titles | Bitmap Index Scan on idx_titles_leaving
+R23,READ,43.718,41.809,38.394,51.022,Index Only Scan using idx_viewing_started_desc on viewing_activity
+R24,READ,0.082,0.038,0.031,0.264,Index Only Scan using idx_profiles_account on profiles
+R25,READ,1.014,0.991,0.802,1.283,Index Only Scan using title_genres_pkey on title_genres | Bitmap Heap Scan on title_genres | Bitmap Index Scan on idx_title_genres_genre
+W01,WRITE,2.219,2.108,1.891,2.717,Index Scan using uq_episode_series_season_num on episodes
+W02,WRITE,2.914,2.701,2.388,3.591,(no scan)
+W03,WRITE,0.904,0.712,0.641,1.728,Seq Scan on plans | Index Scan using accounts_pkey on accounts
+W04,WRITE,1448.273,1391.284,1318.447,1704.882,Bitmap Heap Scan on accounts | Bitmap Index Scan on idx_accounts_active_plan | Seq Scan on plans
+W05,WRITE,241.884,228.771,214.009,288.119,Bitmap Heap Scan on accounts | Index Scan using idx_invoices_failed on invoices
